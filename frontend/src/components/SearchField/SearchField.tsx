@@ -1,4 +1,5 @@
 import SearchBar from "material-ui-search-bar";
+import "../SearchField/SearchField.css";
 
 export default function SearchField() {
     return (

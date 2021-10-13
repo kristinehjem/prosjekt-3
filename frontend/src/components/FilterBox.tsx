@@ -22,8 +22,7 @@ export default function CheckboxesGroup() {
     });
   };
 
-  const { epoch1, epoch2, epoch3 } = state;
-  const error = [epoch1, epoch2, epoch3].filter((v) => v).length !== 2;
+  const { epoch1, epoch2, epoch3, epoch4 } = state;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -50,12 +49,11 @@ export default function CheckboxesGroup() {
           />
           <FormControlLabel
             control={
-              <Checkbox checked={epoch3} onChange={handleChange} name="epoch4" />
+              <Checkbox checked={epoch4} onChange={handleChange} name="epoch4" />
             }
             label="2010 -"
           />
         </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
       </FormControl>
     </Box>
   );

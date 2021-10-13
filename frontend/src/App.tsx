@@ -1,6 +1,6 @@
 import './App.css';
 import FilmGrid from './components/FilmGrid/FilmGrid'
-import SearchField from './components/SearchField';
+import SearchField from './components/SearchField/SearchField';
 import FilterBox from './components/FilterBox';
 
 function App() {
@@ -12,8 +12,6 @@ function App() {
       </header>
     </div>
     <div className="App">
-        <SearchField/>
-        <FilterBox/>
         <FilmGrid></FilmGrid>
       </div>
     </div>
