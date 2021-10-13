@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FilmGrid from './components/FilmGrid/FilmGrid'
+import SideBar from './components/SideBar/SideBar'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+  <div className="App">
+    <div className="header">
+      <header>
+        <h1>IMDb TOP 100 Movies</h1>
       </header>
     </div>
+    <div className="contentgrid">
+      <div className="sidebar">
+      <SideBar></SideBar>
+      </div>
+      <div className="filmgrid">
+      <FilmGrid></FilmGrid>
+      </div>
+    </div>
+  </div>
   );
 }
 
