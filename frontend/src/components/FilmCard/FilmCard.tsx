@@ -3,11 +3,23 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
+import { useAppDispatch } from '../../features/hooks';
+import { updateModalInfo } from '../../features/modalInfo';
 
-export default function FilmCard(props: {title: string, pictureURL: string}) {
+export default function FilmCard(props: {title: string, year: number, pictureURL: string, rating: number, rank: number}) {
+  const dispatch = useAppDispatch();
+
+  function clickAct() {
+    dispatch(updateModalInfo(
+      {title: props.title, year: props.year, image: props.pictureURL, rating: props.rating, rank: props.rank, showing: true}
+      ));
+    /*dispatch(showModal(
+      {open: true}
+      ));*/
+  }
 
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ maxWidth: 300 }} onClick={() => {clickAct()}}>
       <CardActionArea>
         <CardMedia
           component="img"

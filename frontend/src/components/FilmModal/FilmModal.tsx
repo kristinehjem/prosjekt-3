@@ -5,34 +5,47 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
+import { useAppSelector } from '../../features/hooks';
+import { useAppDispatch } from '../../features/hooks';
+import { updateModalInfo } from '../../features/modalInfo';
 import './FilmModal.css';
+
 
 export default function FilmModal() {
 
-    const [open, setOpen] = useState<boolean>(true);
+    //constant required to update and use the values from redux
+    const modalInfo = useAppSelector((state) => state.modalInfo.value);
+    const dispatch = useAppDispatch();
+
     //hook to manage the value of rating
     const [value, setValue] = useState<number | null>(0);
-    const url = "https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_UX128_CR0,3,128,176_AL_.jpg";
-
+  
   return (
       <Modal
-        open={open}
-        onClose={() => {setOpen(false)}}
+        open={modalInfo.showing}
+        onClose={() => {dispatch(updateModalInfo(
+          {showing: false}
+          ))
+        }}
       >
         <Box id="modalBox">
-        <Button variant="outlined" id="exitButton" onClick={() => {}}>x</Button>
-        <Avatar variant={"rounded"} alt="The image" id="image" src={url} style={{
+        <Button variant="outlined" id="exitButton" onClick={() => {dispatch(updateModalInfo(
+          {showing: false}
+          ))
+        }}
+        >x</Button>
+        <Avatar variant={"rounded"} alt="The image" id="image" src={modalInfo.image} style={{
             width: "20vw",
             height: "20vh",
         }}/>
         <div id="info">
-          <Typography variant="h6" sx={{padding: '1vw', fontSize: '2rem'}}>
-              Title
+          <Typography variant="h6" sx={{padding: '1vw'}}>
+            {modalInfo.title}
           </Typography>
           <div id="filmFacts">
-              <Typography variant="subtitle1">Rank</Typography>
-              <Typography variant="subtitle1">Rating</Typography>
-              <Typography variant="subtitle1">Year</Typography>
+              <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
+              <Typography variant="subtitle1">Rating: {modalInfo.rating}</Typography>
+              <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
           </div>
         </div>
           <Typography component="legend" id="userRating">Add your rating</Typography>
@@ -48,3 +61,4 @@ export default function FilmModal() {
       </Modal>
   );
 };
+
