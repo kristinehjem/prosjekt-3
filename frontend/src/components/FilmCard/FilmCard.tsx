@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
+import './FilmCard.css'
 
 export default function FilmCard(props: {title: string, year: number, pictureURL: string, rating: number, rank: number}) {
   const dispatch = useAppDispatch();
@@ -13,13 +14,11 @@ export default function FilmCard(props: {title: string, year: number, pictureURL
     dispatch(updateModalInfo(
       {title: props.title, year: props.year, image: props.pictureURL, rating: props.rating, rank: props.rank, showing: true}
       ));
-    /*dispatch(showModal(
-      {open: true}
-      ));*/
   }
 
   return (
-    <Card sx={{ maxWidth: 300 }} onClick={() => {clickAct()}}>
+  <div>
+    <Card sx={{minWidth: '200px', margin: '5px'}}className="filmCard" onClick={() => {clickAct()}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -33,5 +32,6 @@ export default function FilmCard(props: {title: string, year: number, pictureURL
         </CardContent>
       </CardActionArea>
     </Card>
+    </div>
   );
 }
