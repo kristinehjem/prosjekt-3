@@ -10,7 +10,7 @@ function App() {
       <div className="App">
         <div className="header">
           <header>
-            <h1>IMDb TOP 100 Movies</h1>
+            <h1>IMDb TOP 250 Movies</h1>
           </header>
         </div>
         <div className="contentgrid">
