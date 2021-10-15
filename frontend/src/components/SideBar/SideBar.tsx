@@ -1,7 +1,11 @@
+import FilterBox from "../FilterBox/FilterBox";
+import SearchField from "../SearchField/SearchField";
+
 export default function Sidebar() {
     return (
         <div className="sidebar-wrapper">
-            <h1>Hei</h1>
+            <SearchField></SearchField>
+            <FilterBox></FilterBox>
         </div>
     )
 }
