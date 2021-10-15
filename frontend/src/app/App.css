@@ -1,0 +1,57 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: #FFC069;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header{
+  padding: 5px;
+  flex-shrink: 7;
+  font-weight: 100;
+  font-size: 1.5vw;
+  background: linear-gradient( #1B1717 10%, #372e2e 100%);
+}
+
+@media screen and (min-width: 550px) {
+  .header {
+    font-size: 1.5vw;
+  }
+}
+
+
+@media screen and (max-width: 550px) and (max-height: 550px){
+  .header {
+    font-size: 8px;
+  }
+  .sidebar {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.contentgrid {
+  display: flex;
+  height: 100vh;
+  flex: 1 auto;
+}
+
+.sidebar {
+  background-color: #1B1717;
+  width: 100%;
+  padding: 2vh;
+  flex-shrink: 5;
+}
+
+.filmgrid {
+  background-color: #d7d7d7;
+  width: 100%;
+  padding: 3vh;
+}
