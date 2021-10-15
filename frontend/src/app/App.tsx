@@ -1,10 +1,21 @@
 import './App.css';
 import FilmGrid from '../components/FilmGrid/FilmGrid'
 import SideBar from '../components/SideBar/SideBar'
-import  { Provider} from 'react-redux';
+import { Provider } from 'react-redux';
+import axios from 'axios';
+import { useEffect } from 'react';
 import { store } from './store';
 
 function App() {
+  useEffect(() => {
+    async function test() {
+      console.log("hello");
+      let response = await axios.get('http://localhost:8081/')
+      console.log("response", response);
+      //TODO: Setup state with movies data
+    }
+    test();
+  });
   return (
     <Provider store={store}>
       <div className="App">
@@ -15,10 +26,10 @@ function App() {
         </div>
         <div className="contentgrid">
           <div className="sidebar">
-          <SideBar></SideBar>
+            <SideBar></SideBar>
           </div>
           <div className="filmgrid">
-          <FilmGrid></FilmGrid>
+            <FilmGrid></FilmGrid>
           </div>
         </div>
       </div>
