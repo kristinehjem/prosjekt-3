@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    async function test() {
+      console.log("hello");
+      let response = await axios.get('http://localhost:8081/')
+      console.log("response", response);
+      //TODO: Setup state with movies data
+    }
+    test();
+  });
   return (
     <div className="App">
       <header className="App-header">
