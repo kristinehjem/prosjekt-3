@@ -2,6 +2,8 @@ const express = require("express")
 const QueryModel = require("../models/queryModel.ts")
 
 const router = express.Router();
+
+
 router.get("/", async ( req, res ) => {
     try {
         let queryResult = await QueryModel.find({})
