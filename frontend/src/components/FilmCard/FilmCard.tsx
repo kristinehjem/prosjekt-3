@@ -19,14 +19,14 @@ export default function FilmCard(props: {title: string, year: number, pictureURL
   return (
   <div>
     <Card sx={{minWidth: '200px', margin: '5px'}}className="filmCard" onClick={() => {clickAct()}}>
-      <CardActionArea>
+      <CardActionArea sx={{backgroundColor: 'black'}}>
         <CardMedia
           component="img"
           height="120"
           image={props.pictureURL}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{fontSize: '1.5vw', color: '#FFC069'}}>
+          <Typography id="movieTitle" gutterBottom variant="h5" component="div" sx={{fontSize: '1.5vw', color: '#FFC069'}}>
             {props.title}
           </Typography>
         </CardContent>

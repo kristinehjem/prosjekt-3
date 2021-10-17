@@ -1,0 +1,17 @@
+.container {
+    flex-wrap: wrap;
+}
+
+@media (max-width:550px){
+    .container {
+        flex-wrap: wrap;
+        max-height: 20vh;
+        width: 100%;
+    }
+}
+
+@media (max-height: 420px) and (max-width: 550px) {
+    .container {
+        max-height: 100px;
+    }
+}

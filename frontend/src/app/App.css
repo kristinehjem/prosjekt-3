@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .App {
   text-align: center;
   display: flex;
@@ -9,11 +11,12 @@
 body {
   margin: 0px;
   padding: 0px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header{
   padding: 5px;
+  width: 100%;
   flex-shrink: 7;
   font-weight: 100;
   font-size: 1.5vw;
@@ -26,12 +29,11 @@ body {
   }
 }
 
-
-@media screen and (max-width: 550px) and (max-height: 550px){
+@media screen and (max-width: 550px){
   .header {
     font-size: 8px;
   }
-  .sidebar {
+  .contentgrid {
     flex-direction: column;
     width: 100%;
   }
@@ -41,6 +43,7 @@ body {
   display: flex;
   height: 100vh;
   flex: 1 auto;
+  width: 100%;
 }
 
 .sidebar {
@@ -48,6 +51,7 @@ body {
   width: 100%;
   padding: 2vh;
   flex-shrink: 5;
+  background: linear-gradient( #372e2e 10%, #1B1717 100%);
 }
 
 .filmgrid {
