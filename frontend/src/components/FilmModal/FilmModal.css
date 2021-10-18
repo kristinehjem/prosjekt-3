@@ -11,12 +11,13 @@
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    background-color: white;
-    border: 2px solid #37474F;
+    background-color: #1B1717;
+    color: white;
     width: 50%;
     box-shadow: 2;
     /*p: 4,*/
     border-radius: 20px;
+    background: linear-gradient( #1B1717 10%, #372e2e 100%);
 }
 
 #exitButton {
@@ -27,6 +28,8 @@
     min-height: 1vh;
     font-size: 1.2vh;
     margin: 0.5vw;
+    color: white;
+    border-color: white;
 }
 
 #image {
