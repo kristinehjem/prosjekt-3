@@ -1,10 +1,12 @@
 import modalInfoReducer from '../features/modalInfo';
+import yearFilterReducer from '../features/yearfilter';
 import { configureStore } from '@reduxjs/toolkit';
 
 //source for redux implementation: https://www.youtube.com/watch?v=k68j9xlbHHk
 export const store = configureStore({
   reducer: {
     modalInfo: modalInfoReducer,
+    yearFilter: yearFilterReducer,
   }
 });
 
