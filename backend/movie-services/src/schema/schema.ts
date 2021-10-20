@@ -1,4 +1,3 @@
-//const _ = require('lodash');
 const Movie = require('../models/movie.ts');
 
 const {
@@ -41,9 +40,12 @@ const RootQuery = new GraphQLObjectType({
         },
         yearMovies: {
             type: new GraphQLList(MovieType),
+            args: {
+                year: {type: GraphQLString}
+            },
             resolve(parent, args) {
                 console.log("yearmovies root query");
-                return Movie.find({year: args.year})
+                return Movie.find({year: args.year});
             }
         },
     }

@@ -13,12 +13,13 @@ interface Movie {
   imdbRating: string,
 }
 
-interface MoviesList {
+type MoviesList = {
   movies: Movie[]
+  yearMovies: Movie[]
 }
 
 const GET_MOVIES = gql`
-  query getMovies {
+  query getMovies  {
      movies {
       id
       title
@@ -30,28 +31,42 @@ const GET_MOVIES = gql`
   }
 `
 
-export default function FilmGrid() {
-  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES);
+const GET_MOVIES_YEAR = gql`
+query getMoviesByYear($year: String)  {
+   yearMovies (year: $year) {
+    id
+    title
+    rank
+    year
+    image
+    imdbRating
+  }
+}
+`
 
-  let movies = !!data
-    ? data.movies.map((movie: Movie) =>
-      <div key={movie.id} className="film">
-        <FilmCard
+export default function FilmGrid() {
+  //const movieQuery = useQuery<MoviesList>(GET_MOVIES);
+
+  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES_YEAR, {
+    variables: { year: "2014" },
+  });
+
+  let movies = {};
+  if (data !== undefined) {
+    movies = Object.values(data)[0].map((movie: Movie) =>
+    <div key={movie.id} className="film">
+      <FilmCard
         title={movie.title}
-        year ={movie.year}
-        pictureURL = {movie.image}
-        rating = {movie.imdbRating}
-        rank = {movie.rank} />
-      </div>)
-    : <div>Loading...</div>;
-  ;
+        year={movie.year}
+        pictureURL={movie.image}
+        rating={movie.imdbRating}
+        rank={movie.rank} />
+    </div>);
+  } else {
+    movies = <div>loading...</div>
+  }
   return (
     <div id="filmgrid-wrapper">
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>hei</div>
-      )}
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="filmGrid">
         {movies}
       </Grid>
