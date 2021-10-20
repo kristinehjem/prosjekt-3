@@ -1,18 +1,14 @@
 const express = require("express")
-const QueryModel = require("../models/queryModel.ts")
+const MovieModel = require("../models/movie.ts");
+const { graphqlHTTP } = require('express-graphql');
+const schema = require('../schema/schema.ts');
 
 const router = express.Router();
 
 
-router.get("/", async ( req, res ) => {
-    try {
-        let queryResult = await QueryModel.find({})
-        console.log("queryResult", queryResult);
-        res.send( queryResult )
-    } catch (error) {
-        console.log(error);
-        res.send( error );
-    }
-});
+router.post("/graphql", graphqlHTTP({
+    schema,
+    graphiql: true
+}));
 
 module.exports = router;

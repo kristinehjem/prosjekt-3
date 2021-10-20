@@ -7,7 +7,7 @@ const filmSchema = new Schema({
     title: String,
     year: String,
     image: String,
-    imDbRating: String
+    imdbRating: String
 });
 
 //tror kanskje ikke det er posts som skal stå der

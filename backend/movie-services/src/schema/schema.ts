@@ -1,5 +1,6 @@
-const _ = require('lodash');
-const Movie = require('../modles/movie');
+//const _ = require('lodash');
+const Movie = require('../models/movie.ts');
+
 const {
     GraphQLObjectType,
     GraphQLInt,
@@ -16,7 +17,7 @@ const MovieType = new GraphQLObjectType({
         title: { type: GraphQLString},
         year: { type: GraphQLString},
         image: { type: GraphQLString},
-        imDbRating: { type: GraphQLString},
+        imdbRating: { type: GraphQLString},
     })
 });
 
@@ -27,39 +28,45 @@ const RootQuery = new GraphQLObjectType({
         movies: {
             type: new GraphQLList(MovieType),
             resolve(parent, args) {
-                return movies;
+                console.log("movies root query");
+                return Movie.find({})
             }
         },
         movie: {
             type: MovieType,
-            args: {
-                year: { type: GraphQLString}
-            },
             resolve(parent, args) {
-                //TODO
+                console.log("movie root quert");
+                return Movie.findbyId(args.id)
             }
-        }
+        },
+        yearMovies: {
+            type: new GraphQLList(MovieType),
+            resolve(parent, args) {
+                console.log("yearmovies root query");
+                return Movie.find({year: args.year})
+            }
+        },
     }
 });
 
 // Mutation for writing to the database
-const Mutation = new GraphQLObjectType({
+/*const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     field: {
         addRating {
             type: MovieType,
             // Has to do some calculation to find the new imDbRating
             args: {
-                imDbRating: {type: GraphQLString},
+                imdbRating: {type: GraphQLString},
             },
             resolve(parent, args) {
                 //TODO
             }
         }
     }
-});
+});*/
 
 module.exports = new GraphQLSchema({
     query: RootQuery,
-    mutation: Mutation
+    //mutation: Mutation
 });
