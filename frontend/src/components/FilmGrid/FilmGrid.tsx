@@ -1,16 +1,76 @@
 import "./FilmGrid.css";
 import Grid from '@mui/material/Grid';
 import FilmCard from '../FilmCard/FilmCard'
-import FilmModal from '../FilmModal/FilmModal'
+import { useQuery, gql } from '@apollo/client';
+
+// apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
+interface Movie {
+  id: string,
+  rank: string
+  title: string,
+  year: string,
+  image: string,
+  imdbRating: string,
+}
+
+type MoviesList = {
+  movies: Movie[]
+  yearMovies: Movie[]
+}
+
+const GET_MOVIES = gql`
+  query getMovies  {
+     movies {
+      id
+      title
+      rank
+      year
+      image
+      imdbRating
+    }
+  }
+`
+
+const GET_MOVIES_YEAR = gql`
+query getMoviesByYear($year: String)  {
+   yearMovies (year: $year) {
+    id
+    title
+    rank
+    year
+    image
+    imdbRating
+  }
+}
+`
 
 export default function FilmGrid() {
-  return ( 
-      <div id="filmgrid-wrapper">
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="filmGrid">
-            <FilmCard title="The Dark Knight" year={1994} pictureURL="https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_UX128_CR0,3,128,176_AL_.jpg" rating={9} rank={3}></FilmCard>
-            <FilmCard title="The Dark Moon" year={1932} pictureURL="/static/images/cards/contemplative-reptile.jpg" rating={4} rank={99}></FilmCard>
-            <FilmModal></FilmModal>
-        </Grid>
+  //const movieQuery = useQuery<MoviesList>(GET_MOVIES);
+
+  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES_YEAR, {
+    variables: { year: "2014" },
+  });
+
+  let movies = {};
+  if (data !== undefined) {
+    movies = Object.values(data)[0].map((movie: Movie) =>
+    <div key={movie.id} className="film">
+      <FilmCard
+        title={movie.title}
+        year={movie.year}
+        pictureURL={movie.image}
+        rating={movie.imdbRating}
+        rank={movie.rank} />
+    </div>);
+  } else {
+    movies = <div>loading...</div>
+  }
+  return (
+    <div id="filmgrid-wrapper">
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="filmGrid">
+        {movies}
+      </Grid>
     </div>
   )
 }
+

@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
 import './FilmCard.css'
 
-export default function FilmCard(props: {title: string, year: number, pictureURL: string, rating: number, rank: number}) {
+export default function FilmCard(props: {title: string, year: string, pictureURL: string, rating: string, rank: string}) {
   const dispatch = useAppDispatch();
 
   function clickAct() {
