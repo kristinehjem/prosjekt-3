@@ -9,21 +9,19 @@ import { updateYearFilter } from '../../features/yearfilter';
 
 export default function CheckBox(props: {label: string}) {
 
-    const yearFilter = useAppSelector((state) => state.yearFilter);
+    const yearFilter = useAppSelector((state) => state.yearFilter.value);
     const dispatch = useAppDispatch();
     const key: string = props.label;
 
-    // console.log(yearFilter[key]);
-
 
 const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(yearFilter)
-
+    
 
     dispatch(updateYearFilter(
         {...yearFilter,
-        [props.label]: event.target.checked}
+            [key]: event.target.checked}
     ))
+            
     };
 
 return (
