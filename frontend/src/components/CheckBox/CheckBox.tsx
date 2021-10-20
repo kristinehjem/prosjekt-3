@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useAppSelector } from '../../features/hooks';
@@ -7,30 +7,6 @@ import { updateYearFilter } from '../../features/yearfilter';
 
 
 
-<<<<<<< HEAD
-export default function CheckBox(props: { label: string }) {
-  const [checked, setState] = React.useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(!checked);
-  };
-
-  return (
-    <FormControlLabel
-      control={
-        <Checkbox
-          sx={{ color: "white" }}
-          checked={checked}
-          onChange={handleChange}
-          name="epoch"
-          color="default"
-        />
-      }
-      label={props.label}
-    />
-  );
-}
-=======
 export default function CheckBox(props: {label: string}) {
 
     const yearFilter = useAppSelector((state) => state.yearFilter.value);
@@ -40,12 +16,10 @@ export default function CheckBox(props: {label: string}) {
 
 const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     
-
     dispatch(updateYearFilter(
         {...yearFilter,
             [key]: event.target.checked}
-    ))
-            
+    ))      
     };
 
 return (
@@ -56,4 +30,3 @@ return (
         label= {props.label}
         />)
 }
->>>>>>> master
