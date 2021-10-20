@@ -1,10 +1,11 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import reducer from "../CheckBox";
+import reducer, { updateYearFilter } from "../../../features/yearfilter";
+import CheckBox from "../CheckBox";
 
 test("should return the initial state", () => {
-  expect(reducer(undefined)).toEqual({
+  expect(reducer(undefined, {})).toEqual({
     value: {
       "1950's": false,
       "1960's": false,
@@ -15,6 +16,13 @@ test("should return the initial state", () => {
       "2010's": false,
     },
   });
+});
+
+test("Checkbox renders", () => {
+  render(<CheckBox label="1950's" />);
+  const checkBox = screen.getByTestId("checkbox");
+  expect(checkBox).toBeInTheDocument();
+  expect(checkBox).not.toBeChecked();
 });
 
 // test("should handle a todo being added to an empty list", () => {
