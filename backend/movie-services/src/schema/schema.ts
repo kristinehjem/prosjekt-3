@@ -6,7 +6,6 @@ const {
     GraphQLString,
     GraphQLList,
     GraphQLSchema,
-    GraphQLNonNull,
 } = require('graphql');
 
 const MovieType = new GraphQLObjectType({
@@ -66,6 +65,7 @@ const Mutation = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 console.log("Mutation");
+                // source: https://stackoverflow.com/questions/48436366/how-to-make-update-mutation-graphql-plus-mongodb
                 return new Promise((resolve, reject) => {
                     Movie.findOneAndUpdate(
                         {"title": args.title},
@@ -76,7 +76,6 @@ const Mutation = new GraphQLObjectType({
                         else resolve(res)
                     })
                 })
-                //return Movie.updateOne({title: args.title}, {imdbRating: args.imdbRating, imdbRatingCount: args.imdbRatingCount} )
             }
         },
     }

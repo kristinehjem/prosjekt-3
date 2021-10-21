@@ -7,12 +7,12 @@ import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
 import './FilmCard.css'
 
-export default function FilmCard(props: {title: string, year: string, pictureURL: string, rating: string, rank: string}) {
+export default function FilmCard(props: {title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
   const dispatch = useAppDispatch();
 
   function clickAct() {
     dispatch(updateModalInfo(
-      {title: props.title, year: props.year, image: props.pictureURL, rating: props.rating, rank: props.rank, showing: true}
+      {title: props.title, year: props.year, image: props.pictureURL, rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, showing: true}
       ));
   }
 
