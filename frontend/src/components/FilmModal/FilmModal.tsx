@@ -45,18 +45,19 @@ export default function FilmModal() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const dispatch = useAppDispatch();
 
-  function calculateNewRating() {
+  function calculateNewRating(newValue: number) {
+    console.log(modalInfo.stars);
     const oldRating : number = parseInt(modalInfo.rating);
     const newRatingCount: number = (parseInt(modalInfo.imdbRatingCount) + 1)
     //calculate new rating
-    const newRating = (oldRating + value)/2;
+    const newRating = (oldRating + newValue)/2;
     //add the new rating count and rating to the database
     adduserrating({ variables: {title: modalInfo.title, imdbRating: newRating.toString(), imdbRatingCount: newRatingCount.toString()}});
-    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString()}));
+    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString(), stars: newValue}));
   }
 
   //hook to manage the value of rating
-  const [value, setValue] = useState<number>(0);
+  //const [value, setValue] = useState<number>(0);
   
   return (
       <Modal
@@ -89,13 +90,15 @@ export default function FilmModal() {
         </div>
           <Typography component="legend" id="userRating">Add your rating</Typography>
             <Rating
+            defaultValue={1}
             name="customized-10"
             max={10}
-            value={value}
+            value={modalInfo.stars}
             onChange={(event, newValue: number | null) => {
+              console.log(newValue);
               if (newValue !== null){
-                setValue(newValue);
-                calculateNewRating();
+                calculateNewRating(newValue);
+                //setValue(newValue);
               }
             }}
             />

@@ -12,7 +12,8 @@ export default function FilmCard(props: {title: string, year: string, pictureURL
 
   function clickAct() {
     dispatch(updateModalInfo(
-      {title: props.title, year: props.year, image: props.pictureURL, rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, showing: true}
+      {title: props.title, year: props.year, image: props.pictureURL,
+        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, stars: 0, showing: true}
       ));
   }
 
