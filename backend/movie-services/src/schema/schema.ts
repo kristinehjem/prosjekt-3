@@ -25,13 +25,6 @@ const MovieType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        movies: {
-            type: new GraphQLList(MovieType),
-            resolve(parent, args) {
-                console.log("movies root query");
-                return Movie.find({})
-            }
-        },
         movie: {
             type: MovieType,
             resolve(parent, args) {
@@ -39,14 +32,20 @@ const RootQuery = new GraphQLObjectType({
                 return Movie.findbyId(args.id)
             }
         },
-        yearMovies: {
+        movies: {
             type: new GraphQLList(MovieType),
             args: {
-                year: {type: GraphQLString}
+                title: {type: GraphQLString},
+                years: {type: GraphQLList(GraphQLString)}
             },
             resolve(parent, args) {
-                console.log("yearmovies root query");
-                return Movie.find({year: args.year});
+                console.log("movies root query");
+                if (args.years.length === 0) {
+                    return Movie.find({title: {$regex: new RegExp(args.title, "i")}});
+                }
+                let filters = args.years.map((filter) => new RegExp(filter));
+                return Movie.find({title: {$regex: new RegExp(args.title, "i")},
+                                    year: {$in: filters}});
             }
         },
     }

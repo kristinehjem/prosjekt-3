@@ -1,7 +1,9 @@
 import "./FilmGrid.css";
 import Grid from '@mui/material/Grid';
 import FilmCard from '../FilmCard/FilmCard'
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_MOVIES } from '../../queries/queries';
+import { useAppSelector } from '../../features/hooks';
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 interface Movie {
@@ -18,39 +20,24 @@ export interface MoviesList {
   movies: Movie[]
 }
 
-const GET_MOVIES = gql`
-  query getMovies  {
-     movies {
-      id
-      title
-      rank
-      year
-      image
-      imdbRating
-      imdbRatingCount
-    }
-  }
-`
-
-const GET_MOVIES_YEAR = gql`
-query getMoviesByYear($year: String)  {
-   yearMovies (year: $year) {
-    id
-    title
-    rank
-    year
-    image
-    imdbRating
-    imdbRatingCount
-  }
+export interface YearFilter {
+  year: string,
 }
-`
 
 export default function FilmGrid() {
-  //const movieQuery = useQuery<MoviesList>(GET_MOVIES);
 
-  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES_YEAR, {
-    variables: { year: "2014" },
+  const yearFilter = useAppSelector((state) => state.yearFilter.value);
+
+  let clickedFilters: String[] = [];
+
+  for (const [key, value] of Object.entries(yearFilter)) {
+    if (value === true) {
+      clickedFilters.push(key.slice(0, 3))
+    }
+  }
+
+  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES, {
+    variables: { title: "", years: clickedFilters},
   });
 
   let movies = {};
