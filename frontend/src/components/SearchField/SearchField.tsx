@@ -11,24 +11,23 @@ export default function SearchField() {
   const [state, setState] = React.useState("");
 
   function update(newValue: string) {
-    setState(newValue)
     dispatch(updateSearchFilter( 
       {title: newValue}))
   };
 
+  //Sets a timer so the database call only runs when user doesnt write for 1 sec
   React.useEffect(() => {
-    const timeoutId = setTimeout(() =>{console.log("timeout");
-    },1000);
+    const timeoutId = setTimeout(() => {update(state);
+    },700);
     return () => clearTimeout(timeoutId);
   }, [state]);
-
   
+
     return (
       <div className="searchbar">
       <SearchBar
         value = {state}
-        onChange={(newValue) => {update(newValue)}
-        }
+        onChange={setState}
         onCancelSearch = {() => dispatch(updateSearchFilter(
           {title: ""}))}
         placeholder="Search for movie title"

@@ -1,14 +1,9 @@
 import "./FilmGrid.css";
 import Grid from '@mui/material/Grid';
 import FilmCard from '../FilmCard/FilmCard'
-<<<<<<< HEAD
-import { useQuery, gql } from '@apollo/client';
-import { useAppSelector } from "../../features/hooks";
-=======
 import { useQuery } from '@apollo/client';
 import { GET_MOVIES } from '../../queries/queries';
 import { useAppSelector } from '../../features/hooks';
->>>>>>> master
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 interface Movie {
@@ -31,15 +26,8 @@ export interface YearFilter {
 
 export default function FilmGrid() {
 
-<<<<<<< HEAD
-  const searchFilter = useAppSelector((state) => state.searchFilter.value);
-  console.log(searchFilter.title);
-  
-
-  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES_YEAR, {
-    variables: { year: "2014" },
-=======
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
+  const searchFilter = useAppSelector((state) => state.searchFilter.value);
 
   let clickedFilters: String[] = [];
 
@@ -50,12 +38,15 @@ export default function FilmGrid() {
   }
 
   const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES, {
-    variables: { title: "", years: clickedFilters},
->>>>>>> master
+    variables: { title: searchFilter.title, years: clickedFilters},
   });
 
   let movies = {};
   if (data !== undefined) {
+    if (data.movies.length === 0) {
+      movies = <div className = "searchFeedback">There are no movies with this title.</div>
+    }
+    else {
     movies = Object.values(data)[0].map((movie: Movie) =>
     <div key={movie.id} className="film">
       <FilmCard
@@ -66,8 +57,9 @@ export default function FilmGrid() {
         rank={movie.rank}
         imdbRatingCount={movie.imdbRatingCount} />
     </div>);
+    }
   } else {
-    movies = <div>loading...</div>
+    movies = <div className = "searchFeedback" >loading...</div>
   }
   return (
     <div id="filmgrid-wrapper">
