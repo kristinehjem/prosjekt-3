@@ -1,20 +1,30 @@
-import './App.css';
-import FilmGrid from '../components/FilmGrid/FilmGrid'
-import SideBar from '../components/SideBar/SideBar'
-import { Provider } from 'react-redux';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { store } from './store';
+import "./App.css";
+import FilmGrid from "../components/FilmGrid/FilmGrid";
+import SideBar from "../components/SideBar/SideBar";
+import { Provider } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
+import { store } from "./store";
+
+// expose store when run in Cypress
+// @ts-ignore
+if (window.Cypress) {
+  // console.log(store.getState());
+  // @ts-ignore
+  window.store = store;
+  // @ts-ignore
+  // console.log(window.store.getState());
+}
 
 function App() {
   useEffect(() => {
     async function test() {
       console.log("hello");
-      let response = await axios.get('http://localhost:8081/')
+      let response = await axios.get("http://localhost:8081/");
       console.log("response", response);
       //TODO: Setup state with movies data
     }
-    test();
+    // test();
   });
   return (
     <Provider store={store}>

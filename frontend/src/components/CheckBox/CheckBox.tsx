@@ -9,9 +9,11 @@ export default function CheckBox(props: { label: string }) {
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
   const dispatch = useAppDispatch();
   const key: string = props.label;
+  const id = key + "-checkbox";
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateYearFilter({ ...yearFilter, [key]: event.target.checked }));
+    console.log(yearFilter);
   };
 
   return (
@@ -23,6 +25,7 @@ export default function CheckBox(props: { label: string }) {
           onChange={handleChange}
           color="default"
           data-testid="checkbox"
+          id={id}
         />
       }
       label={props.label}
