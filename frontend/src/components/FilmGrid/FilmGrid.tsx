@@ -2,6 +2,7 @@ import "./FilmGrid.css";
 import Grid from '@mui/material/Grid';
 import FilmCard from '../FilmCard/FilmCard'
 import { useQuery, gql } from '@apollo/client';
+import { useAppSelector } from "../../features/hooks";
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 interface Movie {
@@ -48,6 +49,10 @@ query getMoviesByYear($year: String)  {
 
 export default function FilmGrid() {
   //const movieQuery = useQuery<MoviesList>(GET_MOVIES);
+
+  const searchFilter = useAppSelector((state) => state.searchFilter.value);
+  console.log(searchFilter.title);
+  
 
   const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES_YEAR, {
     variables: { year: "2014" },
