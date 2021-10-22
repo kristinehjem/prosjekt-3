@@ -14,6 +14,7 @@ mongoose.connect('mongodb://admin:gruppe41@it2810-41.idi.ntnu.no:27017/movies')
 mongoose.connection.on('connected', () => {
     console.log("Mongoose connected");
 })
+console.log("mongoose not connected b4?");
 
 app.use(cors(options)) //To allow calls from frontend
 app.use('/', routes)
