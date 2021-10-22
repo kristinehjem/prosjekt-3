@@ -17,6 +17,7 @@ const MovieType = new GraphQLObjectType({
         year: { type: GraphQLString},
         image: { type: GraphQLString},
         imdbRating: { type: GraphQLString},
+        imdbRatingCount: {type: GraphQLString},
     })
 });
 
@@ -52,23 +53,35 @@ const RootQuery = new GraphQLObjectType({
 });
 
 // Mutation for writing to the database
-/*const Mutation = new GraphQLObjectType({
+const Mutation = new GraphQLObjectType({
     name: 'Mutation',
-    field: {
-        addRating {
+    fields: {
+        addUserRating: {
             type: MovieType,
-            // Has to do some calculation to find the new imDbRating
             args: {
+                title: {type: GraphQLString},
                 imdbRating: {type: GraphQLString},
+                imdbRatingCount: {type: GraphQLString},
             },
             resolve(parent, args) {
-                //TODO
+                console.log("Mutation");
+                // source: https://stackoverflow.com/questions/48436366/how-to-make-update-mutation-graphql-plus-mongodb
+                return new Promise((resolve, reject) => {
+                    Movie.findOneAndUpdate(
+                        {"title": args.title},
+                        {"$set": {imdbRating: args.imdbRating, imdbRatingCount: args.imdbRatingCount}},
+                        {"new": true} // returns
+                    ).exec((err, res) => {
+                        if(err) reject(err)
+                        else resolve(res)
+                    })
+                })
             }
-        }
+        },
     }
-});*/
+});
 
 module.exports = new GraphQLSchema({
     query: RootQuery,
-    //mutation: Mutation
+    mutation: Mutation,
 });

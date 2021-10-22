@@ -11,11 +11,11 @@ interface Movie {
   year: string,
   image: string,
   imdbRating: string,
+  imdbRatingCount: string,
 }
 
-type MoviesList = {
+export interface MoviesList {
   movies: Movie[]
-  yearMovies: Movie[]
 }
 
 const GET_MOVIES = gql`
@@ -27,6 +27,7 @@ const GET_MOVIES = gql`
       year
       image
       imdbRating
+      imdbRatingCount
     }
   }
 `
@@ -40,6 +41,7 @@ query getMoviesByYear($year: String)  {
     year
     image
     imdbRating
+    imdbRatingCount
   }
 }
 `
@@ -60,7 +62,8 @@ export default function FilmGrid() {
         year={movie.year}
         pictureURL={movie.image}
         rating={movie.imdbRating}
-        rank={movie.rank} />
+        rank={movie.rank}
+        imdbRatingCount={movie.imdbRatingCount} />
     </div>);
   } else {
     movies = <div>loading...</div>
