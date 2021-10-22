@@ -8,7 +8,8 @@ const filmSchema = new Schema({
     title: String,
     year: String,
     image: String,
-    imdbRating: String
+    imdbRating: String,
+    imdbRatingCount: String,
 });
 
 filmSchema.plugin(mongoosePaginate);

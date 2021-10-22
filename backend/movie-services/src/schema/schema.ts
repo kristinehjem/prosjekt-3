@@ -17,6 +17,7 @@ const MovieType = new GraphQLObjectType({
         year: { type: GraphQLString },
         image: { type: GraphQLString },
         imdbRating: { type: GraphQLString },
+        imdbRatingCount: { type: GraphQLString },
     })
 });
 
@@ -24,13 +25,6 @@ const MovieType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        movies: {
-            type: new GraphQLList(MovieType),
-            resolve(parent, args) {
-                console.log("movies root query");
-                return Movie.find({})
-            }
-        },
         movie: {
             type: MovieType,
             resolve(parent, args) {
@@ -38,42 +32,69 @@ const RootQuery = new GraphQLObjectType({
                 return Movie.findbyId(args.id)
             }
         },
-        yearMovies: {
+        movies: {
             type: new GraphQLList(MovieType),
             args: {
-                year: { type: GraphQLString },
+                title: { type: GraphQLString },
+                years: { type: GraphQLList(GraphQLString) },
                 offset: { type: GraphQLInt },
                 limit: { type: GraphQLInt }
 
             },
             async resolve(parent, args) {
-                console.log("yearMovies root query");
-                const condition = {year: args.year}
-                const res = await Movie.paginate(condition, { offset: args.offset, limit: args.limit })
-                return res.docs;
+                console.log("movies root query");
+                let condition;
+                if (args.years.length === 0) {
+                    condition = { year: args.year }
+                } else {
+                    let filters = args.years.map((filter) => new RegExp(filter));
+                    condition = {
+                        title: { $regex: new RegExp(args.title, "i") },
+                        year: { $in: filters }
+                    }
+                }
+                try {
+                    const res = await Movie.paginate(condition, { offset: args.offset, limit: args.limit })
+                    return res.docs;
+                } catch (error) {
+                    console.log(error);
+                    return error;
+                }
+            },
+        }
+    },
+});
+
+// Mutation for writing to the database
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addUserRating: {
+            type: MovieType,
+            args: {
+                title: { type: GraphQLString },
+                imdbRating: { type: GraphQLString },
+                imdbRatingCount: { type: GraphQLString },
+            },
+            resolve(parent, args) {
+                console.log("Mutation");
+                // source: https://stackoverflow.com/questions/48436366/how-to-make-update-mutation-graphql-plus-mongodb
+                return new Promise((resolve, reject) => {
+                    Movie.findOneAndUpdate(
+                        { "title": args.title },
+                        { "$set": { imdbRating: args.imdbRating, imdbRatingCount: args.imdbRatingCount } },
+                        { "new": true } // returns
+                    ).exec((err, res) => {
+                        if (err) reject(err)
+                        else resolve(res)
+                    })
+                })
             }
         },
     }
 });
 
-// Mutation for writing to the database
-/*const Mutation = new GraphQLObjectType({
-    name: 'Mutation',
-    field: {
-        addRating {
-            type: MovieType,
-            // Has to do some calculation to find the new imDbRating
-            args: {
-                imdbRating: {type: GraphQLString},
-            },
-            resolve(parent, args) {
-                //TODO
-            }
-        }
-    }
-});*/
-
 module.exports = new GraphQLSchema({
     query: RootQuery,
-    //mutation: Mutation
+    mutation: Mutation,
 });
