@@ -74,11 +74,11 @@ export default function FilmModal() {
         }}
         >x</Button>
         <Avatar variant={"rounded"} alt="The image" id="image" src={modalInfo.image} style={{
-            width: "20vw",
-            height: "20vh",
+            width: "14vw",
+            height: "30vh",
         }}/>
         <div id="info">
-          <Typography variant="h6" sx={{padding: '1vw'}}>
+          <Typography variant="h6" sx={{padding: '1vw', fontSize: '4vh'}}>
             {modalInfo.title}
           </Typography>
           <div id="filmFacts">
