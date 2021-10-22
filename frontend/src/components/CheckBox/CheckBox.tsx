@@ -16,7 +16,6 @@ export default function CheckBox(props: {label: string}) {
 
 const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     
-
     dispatch(updateYearFilter(
         {...yearFilter,
             [key]: event.target.checked}

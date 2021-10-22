@@ -27,6 +27,7 @@ export interface YearFilter {
 export default function FilmGrid() {
 
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
+  const searchFilter = useAppSelector((state) => state.searchFilter.value);
 
   let clickedFilters: String[] = [];
 
@@ -37,11 +38,15 @@ export default function FilmGrid() {
   }
 
   const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES, {
-    variables: { title: "", years: clickedFilters},
+    variables: { title: searchFilter.title, years: clickedFilters},
   });
 
   let movies = {};
   if (data !== undefined) {
+    if (data.movies.length === 0) {
+      movies = <div className = "searchFeedback">There are no movies with this title.</div>
+    }
+    else {
     movies = Object.values(data)[0].map((movie: Movie) =>
     <div key={movie.id} className="film">
       <FilmCard
@@ -52,8 +57,9 @@ export default function FilmGrid() {
         rank={movie.rank}
         imdbRatingCount={movie.imdbRatingCount} />
     </div>);
+    }
   } else {
-    movies = <div>loading...</div>
+    movies = <div className = "searchFeedback" >loading...</div>
   }
   return (
     <div id="filmgrid-wrapper">
