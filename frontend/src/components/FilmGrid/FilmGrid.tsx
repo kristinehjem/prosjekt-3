@@ -28,7 +28,7 @@ export interface YearFilter {
 export default function FilmGrid() {
   const [page, setPage] = useState<number>(1);
   const [filmCards, setFilmCards] = useState<ReactChild[]>()
-  const itemPerPage = 2;
+  const itemPerPage = 5;
 
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
 
