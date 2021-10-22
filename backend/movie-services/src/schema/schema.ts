@@ -43,17 +43,19 @@ const RootQuery = new GraphQLObjectType({
             },
             async resolve(parent, args) {
                 console.log("movies root query");
-                let condition;
-                if (args.years.length === 0) {
-                    condition = { year: args.year }
-                } else {
-                    let filters = args.years.map((filter) => new RegExp(filter));
+                let condition = {};
+                if (args.title !== "") {
                     condition = {
-                        title: { $regex: new RegExp(args.title, "i") },
-                        year: { $in: filters }
+                        title: { $regex: new RegExp(args.title, "i") }
                     }
                 }
+                if (args.years.length > 0) {
+                    let filters = args.years.map((filter) => new RegExp(filter));
+                    let yearFilterCondition = { year: { $in: filters } };
+                    condition = Object.assign(condition, yearFilterCondition)
+                }
                 try {
+                    console.log(condition);
                     const res = await Movie.paginate(condition, { offset: args.offset, limit: args.limit })
                     return res.docs;
                 } catch (error) {

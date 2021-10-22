@@ -31,6 +31,7 @@ export default function FilmGrid() {
   const itemPerPage = 5;
 
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
+  const searchFilter = useAppSelector((state) => state.searchFilter.value);
 
   let clickedFilters: String[] = [];
 
@@ -41,11 +42,17 @@ export default function FilmGrid() {
   }
 
   const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES, {
-    variables: { title: "", years: clickedFilters, offset: (page - 1) * itemPerPage, limit: itemPerPage,},
+    variables: { title: searchFilter.title, years: clickedFilters, offset: (page - 1) * itemPerPage, limit: itemPerPage,},
   });
   useEffect(() => {
     if (data !== undefined && data !== null) {
-      const movies = Object.values(data)[0] || []
+      let movies;
+      if (data.movies.length === 0) {
+        movies = [<div className = "searchFeedback">There are no movies with this title.</div>]
+        setFilmCards(movies)
+      }
+      else {
+      movies = Object.values(data)[0] || []
       setFilmCards(movies.map((movie: Movie) =>
         <div key={movie.id} className="film">
           <FilmCard
@@ -56,6 +63,7 @@ export default function FilmGrid() {
             rank={movie.rank} 
             imdbRatingCount={movie.imdbRatingCount} />
         </div>));
+      }
     }
   }, [data])
   return (
@@ -64,7 +72,7 @@ export default function FilmGrid() {
         {filmCards}
       </Grid>
       {!filmCards &&
-        <div>
+        <div className = "searchFeedback">
           Loading...
         </div>
       }
