@@ -21,6 +21,7 @@ export default function FilmModal() {
   const [adduserrating] = useMutation<MovieList>(ADD_USER_RATING); //funker dette nå???
 
   function calculateNewRating(newValue: number) {
+    localStorage.setItem(modalInfo.id, newValue.toString());
     const oldRating : number = parseFloat(modalInfo.rating);
     const oldRatingCount: number = parseInt(modalInfo.imdbRatingCount);
     const newRatingCount = oldRatingCount + 1;
@@ -29,7 +30,7 @@ export default function FilmModal() {
     //add the new rating count and rating to the database 
     adduserrating({ variables: {title: modalInfo.title, imdbRating: newRating.toString(), imdbRatingCount: newRatingCount.toString()}});
     //add the new rating count and rating to redux
-    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString(), stars: newValue}));
+    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString(), stars: newValue, disableRating: true}));
   }
 
   function closeModal() {
@@ -59,7 +60,10 @@ export default function FilmModal() {
                 <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
                 <Typography variant="subtitle1">Rating count: {modalInfo.imdbRatingCount}</Typography>
               </div>
-            </div><Typography component="legend" id="userRating">Add your rating</Typography><Rating
+            </div>
+            <Typography component="legend" id="userRating">Add your rating</Typography>
+            <Rating
+              disabled={modalInfo.disableRating}
               defaultValue={0}
               name="customized-10"
               max={10}
