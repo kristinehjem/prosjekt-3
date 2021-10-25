@@ -48,8 +48,8 @@ export default function MovieModal() {
         <Button variant="outlined" id="exitButton" onClick={closeModal}
         >x</Button>
         <Avatar variant={"rounded"} alt="The image" src={modalInfo.image} id="image" style={{
-            width: "20vw",
-            height: "20vh",
+            width: "80%",
+            height: "100%",
           }} /><div id="info">
               <Typography variant="h6" sx={{ padding: '1vw' }}>
                 {modalInfo.title}
