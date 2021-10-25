@@ -10,9 +10,9 @@ import { updateModalInfo } from '../../features/modalInfo';
 import { useMutation } from '@apollo/client';
 import { ADD_USER_RATING } from '../../queries/queries'
 import { MovieList } from '../../types'
-import './FilmModal.css';
+import './MovieModal.css';
 
-export default function FilmModal() {
+export default function MovieModal() {
 
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const dispatch = useAppDispatch();
@@ -21,6 +21,7 @@ export default function FilmModal() {
   const [adduserrating] = useMutation<MovieList>(ADD_USER_RATING); //funker dette nå???
 
   function calculateNewRating(newValue: number) {
+    localStorage.setItem(modalInfo.id, newValue.toString());
     const oldRating : number = parseFloat(modalInfo.rating);
     const oldRatingCount: number = parseInt(modalInfo.imdbRatingCount);
     const newRatingCount = oldRatingCount + 1;
@@ -29,7 +30,7 @@ export default function FilmModal() {
     //add the new rating count and rating to the database 
     adduserrating({ variables: {title: modalInfo.title, imdbRating: newRating.toString(), imdbRatingCount: newRatingCount.toString()}});
     //add the new rating count and rating to redux
-    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString(), stars: newValue}));
+    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString(), stars: newValue, disableRating: true}));
   }
 
   function closeModal() {
@@ -47,19 +48,22 @@ export default function FilmModal() {
         <Button variant="outlined" id="exitButton" onClick={closeModal}
         >x</Button>
         <Avatar variant={"rounded"} alt="The image" src={modalInfo.image} id="image" style={{
-            width: "20vw",
-            height: "20vh",
+            width: "80%",
+            height: "100%",
           }} /><div id="info">
               <Typography variant="h6" sx={{ padding: '1vw' }}>
                 {modalInfo.title}
               </Typography>
-              <div id="filmFacts">
+              <div id="movieFacts">
                 <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
                 <Typography variant="subtitle1">Rating: {modalInfo.rating.slice(0, 3)}</Typography>
                 <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
                 <Typography variant="subtitle1">Rating count: {modalInfo.imdbRatingCount}</Typography>
               </div>
-            </div><Typography component="legend" id="userRating">Add your rating</Typography><Rating
+            </div>
+            <Typography component="legend" id="userRating">Add your rating</Typography>
+            <Rating
+              disabled={modalInfo.disableRating}
               defaultValue={0}
               name="customized-10"
               max={10}
