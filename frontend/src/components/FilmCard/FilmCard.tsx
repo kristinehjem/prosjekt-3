@@ -11,9 +11,20 @@ export default function FilmCard(props: {id: string, title: string, year: string
   const dispatch = useAppDispatch();
 
   function clickAct() {
+    let ratingValue = localStorage.getItem(props.id);
+    //if a person already has given this movie a rating, the rating will be disabled
+    let disableRating : boolean = true;
+    //if ratingValue is null, the person hasn't given this movie a rating before
+    if (ratingValue === null) {
+      localStorage.setItem(props.id, "0");
+      ratingValue = "0";
+      disableRating = false;
+    }
+
     dispatch(updateModalInfo(
       {id: props.id, title: props.title, year: props.year, image: props.pictureURL,
-        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, showing: true}
+        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, 
+        disableRating: disableRating, stars: ratingValue, showing: true}
       ));
   }
 
