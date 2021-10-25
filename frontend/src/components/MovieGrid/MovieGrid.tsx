@@ -50,7 +50,7 @@ export default function MovieGrid() {
     else {
     movies = Object.values(data)[0].map((movie: Movie) =>
     <div key={movie.id} className="film">
-      <FilmCard
+      <MovieCard
         title={movie.title}
         year={movie.year}
         pictureURL={movie.image}
