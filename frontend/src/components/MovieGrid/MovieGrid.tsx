@@ -7,6 +7,7 @@ import { useAppSelector } from '../../features/hooks';
 import MovieModal from '../../components/MovieModal/MovieModal';
 import { Movie, MovieList, YearFilter } from '../../types'
 import CircularProgress from '@mui/material/CircularProgress';
+import { useState } from "react";
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 
@@ -14,6 +15,8 @@ export default function MovieGrid() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
   const searchFilter = useAppSelector((state) => state.searchFilter.value);
+  //"title" if the movies will be sorted by title, empty string "" if the movies will be sorted by rank(which is the default)
+  const [sorting, setSorting] = useState<String>("");
 
   let clickedFilters: String[] = [];
 
@@ -25,7 +28,7 @@ export default function MovieGrid() {
   }
 
   const { loading, error, data } = useQuery<MovieList>(GET_MOVIES, {
-    variables: { title: searchFilter.title, years: clickedFilters},
+    variables: { title: searchFilter.title, years: clickedFilters, sort: sorting},
   });
 
   let movies = {};
@@ -52,10 +55,23 @@ export default function MovieGrid() {
       <CircularProgress color='inherit'/>
     </div>
   }
+
+  function changeSorting(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSorting(event.target.value);
+  }
+
   return (
     <div className="moviegrid-wrapper">
-        <div className="movieList">{movies}</div>
-        {modalInfo.showing ? <MovieModal/> : null}
+      {data !== undefined ?
+      <span className="custom-dropdown">
+        <select onChange={changeSorting}>
+            <option value="">Sort by: rank</option>
+            <option value="title">Sort by: title</option>  
+        </select>
+    </span>
+        : null}
+      <div className="movieList">{movies}</div>
+      {modalInfo.showing ? <MovieModal/> : null}
     </div>
   )
 }

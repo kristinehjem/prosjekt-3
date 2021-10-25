@@ -39,17 +39,30 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(MovieType),
             args: {
                 title: {type: GraphQLString},
-                years: {type: GraphQLList(GraphQLString)}
+                years: {type: GraphQLList(GraphQLString)},
+                sort: {type: GraphQLString},
             },
             resolve(parent, args) {
                 console.log("movies root query");
-                //makes the years filter a regexp to be able to find all movies in a given decade
-                if (args.years.length === 0) {
-                    return Movie.find({title: {$regex: new RegExp(args.title, "i")}});
+                //if sort is an empty string, the data will not be sorted by title, but by rank which is default
+                if (args.sort === "") {
+                    if (args.years.length === 0) {
+                        return Movie.find({title: {$regex: new RegExp(args.title, "i")}});
+                    }
+                    //makes the years filter a regexp to be able to find all movies in a given decade
+                    let filters = args.years.map((filter) => new RegExp(filter));
+                    return Movie.find({title: {$regex: new RegExp(args.title, "i")},
+                                        year: {$in: filters}});
+
                 }
+                if (args.years.length === 0) {
+                    return Movie.find({title: {$regex: new RegExp(args.title, "i")}}).sort({title: 1});
+                }
+                //makes the years filter a regexp to be able to find all movies in a given decade
                 let filters = args.years.map((filter) => new RegExp(filter));
                 return Movie.find({title: {$regex: new RegExp(args.title, "i")},
-                                    year: {$in: filters}});
+                                    year: {$in: filters}}).sort({title: 1});
+
             }
         },
     }

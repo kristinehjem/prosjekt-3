@@ -34,3 +34,41 @@
         overflow-y: auto;
     }
 }
+
+/* everything for dropdown menu is from https://speckyboy.com/open-source-css-javascript-select-box-snippets/*/
+  
+.custom-dropdown {
+position: relative;
+display: inline-block;
+vertical-align: middle;
+margin: 8px; 
+}
+    
+.custom-dropdown select {
+background-color: #372e2e;
+color: #fff;
+font-size: inherit;
+padding: .5em;
+padding-right: 2.5em; 
+border: 0;
+margin: 0;
+border-radius: 3px;
+text-indent: 0.01px;
+text-overflow: '';
+cursor: pointer;
+}
+    
+.custom-dropdown::before,
+.custom-dropdown::after {
+content: "";
+position: absolute;
+pointer-events: none;
+}
+
+.custom-dropdown::before {
+background-color: rgba(0,0,0,.15);
+}
+
+.custom-dropdown::after {
+color: rgba(0,0,0,.4);
+    }
