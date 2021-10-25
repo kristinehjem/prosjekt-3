@@ -1,26 +1,23 @@
-import './App.css';
-import FilmGrid from '../components/FilmGrid/FilmGrid';
-import SideBar from '../components/SideBar/SideBar';
-import { Provider } from 'react-redux';
-import { store } from './store';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import "./App.css";
+import FilmGrid from "../components/FilmGrid/FilmGrid";
+import SideBar from "../components/SideBar/SideBar";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 // expose store when run in Cypress
 // @ts-ignore
 if (window.Cypress) {
-  // console.log(store.getState());
   // @ts-ignore
   window.store = store;
   // @ts-ignore
-  // console.log(window.store.getState());
 }
 
 // apollo client setup
 const client = new ApolloClient({
-  uri: 'http://localhost:8081/graphql',
-  cache: new  InMemoryCache()
+  uri: "http://localhost:8081/graphql",
+  cache: new InMemoryCache(),
 });
-
 
 function App() {
   return (
