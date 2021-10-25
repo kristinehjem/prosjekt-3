@@ -35,7 +35,7 @@ export default function MovieGrid() {
     }
     else {
     movies = Object.values(data)[0].map((movie: Movie) =>
-    <div key={movie.id} className="film">
+    <div key={movie.id} className="movie">
       <MovieCard
         id = {movie.id}
         title={movie.title}
@@ -53,7 +53,7 @@ export default function MovieGrid() {
     </div>
   }
   return (
-    <div className="filmgrid-wrapper">
+    <div className="moviegrid-wrapper">
         <div className="movieList">{movies}</div>
         {modalInfo.showing ? <MovieModal/> : null}
     </div>

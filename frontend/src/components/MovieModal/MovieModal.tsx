@@ -54,7 +54,7 @@ export default function MovieModal() {
               <Typography variant="h6" sx={{ padding: '1vw' }}>
                 {modalInfo.title}
               </Typography>
-              <div id="filmFacts">
+              <div id="movieFacts">
                 <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
                 <Typography variant="subtitle1">Rating: {modalInfo.rating.slice(0, 3)}</Typography>
                 <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
