@@ -15,7 +15,7 @@ body {
 }
 
 .header{
-  padding: 5px;
+  padding: 5px 3vh 5px 3vh;
   width: 100%;
   flex-shrink: 7;
   font-weight: 100;
@@ -49,13 +49,7 @@ body {
 .sidebar {
   background-color: #1B1717;
   width: 100%;
-  padding: 2vh;
+  padding: 0 3vh 0 3vh;
   flex-shrink: 5;
   background: linear-gradient( #372e2e 10%, #1B1717 100%);
-}
-
-.filmgrid {
-  background-color: #d7d7d7;
-  width: 100%;
-  padding: 3vh;
 }

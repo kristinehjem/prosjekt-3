@@ -2,61 +2,73 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import { useAppSelector } from '../../features/hooks';
 import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
+import { useMutation } from '@apollo/client';
+import { ADD_USER_RATING } from '../../queries/queries'
+import { MovieList } from '../../types'
 import './FilmModal.css';
-
 
 export default function FilmModal() {
 
-    //constant required to update and use the values from redux
-    const modalInfo = useAppSelector((state) => state.modalInfo.value);
-    const dispatch = useAppDispatch();
+  const modalInfo = useAppSelector((state) => state.modalInfo.value);
+  const dispatch = useAppDispatch();
 
-    //hook to manage the value of rating
-    const [value, setValue] = useState<number | null>(0);
+  //adduserrating is function to call when you want to do the mutation to the database
+  const [adduserrating] = useMutation<MovieList>(ADD_USER_RATING); //funker dette nå???
+
+  function calculateNewRating(newValue: number) {
+    const oldRating : number = parseFloat(modalInfo.rating);
+    const oldRatingCount: number = parseInt(modalInfo.imdbRatingCount);
+    const newRatingCount = oldRatingCount + 1;
+    //calculate new rating. newRating will be used in the database, newRoundedRating will be stored in modalInfo for better
+    const newRating = (oldRating*oldRatingCount + newValue)/newRatingCount
+    //add the new rating count and rating to the database 
+    adduserrating({ variables: {title: modalInfo.title, imdbRating: newRating.toString(), imdbRatingCount: newRatingCount.toString()}});
+    //add the new rating count and rating to redux
+    dispatch(updateModalInfo({...modalInfo, rating: newRating.toString(), imdbRatingCount: newRatingCount.toString(), stars: newValue}));
+  }
+
+  function closeModal() {
+    dispatch(updateModalInfo(
+      {showing: false}
+      ));
+  }
   
   return (
       <Modal
         open={modalInfo.showing}
-        onClose={() => {dispatch(updateModalInfo(
-          {showing: false}
-          ))
-        }}
+        onClose={closeModal}
       >
         <Box id="modalBox">
-        <Button variant="outlined" id="exitButton" onClick={() => {dispatch(updateModalInfo(
-          {showing: false}
-          ))
-        }}
+        <Button variant="outlined" id="exitButton" onClick={closeModal}
         >x</Button>
-        <Avatar variant={"rounded"} alt="The image" id="image" src={modalInfo.image} style={{
+        <Avatar variant={"rounded"} alt="The image" src={modalInfo.image} id="image" style={{
             width: "20vw",
             height: "20vh",
-        }}/>
-        <div id="info">
-          <Typography variant="h6" sx={{padding: '1vw'}}>
-            {modalInfo.title}
-          </Typography>
-          <div id="filmFacts">
-              <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
-              <Typography variant="subtitle1">Rating: {modalInfo.rating}</Typography>
-              <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
-          </div>
-        </div>
-          <Typography component="legend" id="userRating">Add your rating</Typography>
-            <Rating
-            name="customized-10"
-            max={10}
-            value={value}
-            onChange={(event, newValue: number | null) => {
-                setValue(newValue);
-            }}
-            />
+          }} /><div id="info">
+              <Typography variant="h6" sx={{ padding: '1vw' }}>
+                {modalInfo.title}
+              </Typography>
+              <div id="filmFacts">
+                <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
+                <Typography variant="subtitle1">Rating: {modalInfo.rating.slice(0, 3)}</Typography>
+                <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
+                <Typography variant="subtitle1">Rating count: {modalInfo.imdbRatingCount}</Typography>
+              </div>
+            </div><Typography component="legend" id="userRating">Add your rating</Typography><Rating
+              defaultValue={0}
+              name="customized-10"
+              max={10}
+              value={modalInfo.stars ?? 0}
+              onChange={(event, newValue: number | null) => {
+                if (newValue !== null) {
+                  calculateNewRating(newValue);
+                }
+              } } />
         </Box>
       </Modal>
   );

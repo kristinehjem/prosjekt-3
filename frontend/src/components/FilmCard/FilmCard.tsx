@@ -7,18 +7,19 @@ import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
 import './FilmCard.css'
 
-export default function FilmCard(props: {title: string, year: number, pictureURL: string, rating: number, rank: number}) {
+export default function FilmCard(props: {id: string, title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
   const dispatch = useAppDispatch();
 
   function clickAct() {
     dispatch(updateModalInfo(
-      {title: props.title, year: props.year, image: props.pictureURL, rating: props.rating, rank: props.rank, showing: true}
+      {id: props.id, title: props.title, year: props.year, image: props.pictureURL,
+        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, showing: true}
       ));
   }
 
   return (
   <div>
-    <Card sx={{minWidth: '200px', margin: '5px'}}className="filmCard" onClick={() => {clickAct()}}>
+    <Card sx={{minWidth: '200px', margin: '5px'}} className="filmCard" onClick={() => {clickAct()}}>
       <CardActionArea sx={{backgroundColor: 'black'}}>
         <CardMedia
           component="img"
