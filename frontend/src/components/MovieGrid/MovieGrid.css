@@ -1,4 +1,4 @@
-.filmgrid {
+.moviegrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     height: 100%;
@@ -9,7 +9,7 @@
     padding: 3vh;
 }
 
-.filmgrid-wrapper {
+.moviegrid-wrapper {
     margin: 5% 5%;
     width: 100%;
     height: 100%;
@@ -30,7 +30,7 @@
 }
 
 @media (min-width: 550px) {
-    .filmgrid {
+    .moviegrid {
         overflow-y: auto;
     }
 }

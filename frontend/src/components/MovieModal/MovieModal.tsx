@@ -48,13 +48,13 @@ export default function MovieModal() {
         <Button variant="outlined" id="exitButton" onClick={closeModal}
         >x</Button>
         <Avatar variant={"rounded"} alt="The image" src={modalInfo.image} id="image" style={{
-            width: "20vw",
-            height: "20vh",
+            width: "80%",
+            height: "100%",
           }} /><div id="info">
               <Typography variant="h6" sx={{ padding: '1vw' }}>
                 {modalInfo.title}
               </Typography>
-              <div id="filmFacts">
+              <div id="movieFacts">
                 <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
                 <Typography variant="subtitle1">Rating: {modalInfo.rating.slice(0, 3)}</Typography>
                 <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
