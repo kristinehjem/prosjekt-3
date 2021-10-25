@@ -4,6 +4,7 @@ import FilmCard from '../FilmCard/FilmCard'
 import { useQuery } from '@apollo/client';
 import { GET_MOVIES } from '../../queries/queries';
 import { useAppSelector } from '../../features/hooks';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 interface Movie {
@@ -59,7 +60,10 @@ export default function FilmGrid() {
     </div>);
     }
   } else {
-    movies = <div className = "searchFeedback" >loading...</div>
+    movies = <div className = "searchFeedback" >
+      <p>loading</p>
+      <CircularProgress color='inherit'/>
+    </div>
   }
   return (
     <div id="filmgrid-wrapper">

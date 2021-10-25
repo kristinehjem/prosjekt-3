@@ -30,7 +30,7 @@ export default function SearchField() {
         onChange={setState}
         onCancelSearch = {() => dispatch(updateSearchFilter(
           {title: ""}))}
-        placeholder="Search for movie title"
+        placeholder="Movie title"
       />
     </div>
   );

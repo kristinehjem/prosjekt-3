@@ -74,18 +74,18 @@ export default function FilmModal() {
         }}
         >x</Button>
         <Avatar variant={"rounded"} alt="The image" id="image" src={modalInfo.image} style={{
-            width: "20vw",
-            height: "20vh",
+            width: "80%",
+            height: "100%",
         }}/>
         <div id="info">
-          <Typography variant="h6" sx={{padding: '1vw'}}>
+          <Typography variant="h6" sx={{padding: '1vw', fontSize: '3vh'}}>
             {modalInfo.title}
           </Typography>
           <div id="filmFacts">
-              <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
-              <Typography variant="subtitle1">Rating: {modalInfo.rating}</Typography>
-              <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
-              <Typography variant="subtitle1">Rating count: {modalInfo.imdbRatingCount}</Typography>
+              <Typography variant="subtitle1" sx={{marginBottom: '1vh'}}>Rank: {modalInfo.rank}</Typography>
+              <Typography variant="subtitle1" sx={{marginBottom: '1vh'}}>Rating: {modalInfo.rating}</Typography>
+              <Typography variant="subtitle1" sx={{marginBottom: '1vh'}}>Year of release: {modalInfo.year}</Typography>
+              <Typography variant="subtitle1" sx={{marginBottom: '1vh'}}>Rating count: {modalInfo.imdbRatingCount}</Typography>
           </div>
         </div>
           <Typography component="legend" id="userRating">Add your rating</Typography>
