@@ -15,7 +15,6 @@ body {
 }
 
 .header{
-  padding: 5px 3vh 5px 3vh;
   width: 100%;
   flex-shrink: 7;
   font-weight: 100;
@@ -32,6 +31,7 @@ body {
 @media screen and (max-width: 550px){
   .header {
     font-size: 8px;
+    padding: 0 3vh 0 3vh;
   }
   .contentgrid {
     flex-direction: column;

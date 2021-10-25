@@ -19,8 +19,8 @@ export default function FilmCard(props: {title: string, year: string, pictureURL
 
   return (
   <div>
-    <Card sx={{minWidth: '200px', margin: '5px'}}className="filmCard" onClick={() => {clickAct()}}>
-      <CardActionArea sx={{backgroundColor: 'black'}}>
+    <Card className="movieCard" sx={{backgroundColor: 'black'}} onClick={() => {clickAct()}}>
+      <CardActionArea>
         <CardMedia
           component="img"
           height="120"

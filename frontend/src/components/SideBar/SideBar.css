@@ -2,5 +2,6 @@
     .sidebar-wrapper {
         max-height: 20vh;
         height: fit-content;
+        position: static;
     }
 }

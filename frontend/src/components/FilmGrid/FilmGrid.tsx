@@ -66,10 +66,8 @@ export default function FilmGrid() {
     </div>
   }
   return (
-    <div id="filmgrid-wrapper">
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="filmGrid">
-        {movies}
-      </Grid>
+    <div className="filmgrid-wrapper">
+        <div className="movieList">{movies}</div>
     </div>
   )
 }

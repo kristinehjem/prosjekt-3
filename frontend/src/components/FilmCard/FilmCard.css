@@ -1,5 +1,10 @@
 #movieTitle {
-    font-size: 20px;
+    font-size: 15px;
 }
 
+.movieCard {
+    min-height: auto;
+    height: 200px;
+    width: 150px;
+}
 
