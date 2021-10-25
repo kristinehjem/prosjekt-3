@@ -31,7 +31,6 @@ function App() {
               <MovieGrid></MovieGrid>
             </div>
           </div>
-          <MovieModal></MovieModal>
         </div>
       </Provider>
     </ApolloProvider>

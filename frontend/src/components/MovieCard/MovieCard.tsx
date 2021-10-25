@@ -7,13 +7,24 @@ import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
 import './MovieCard.css'
 
-export default function MovieCard(props: {title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
+export default function MovieCard(props: {id: string, title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
   const dispatch = useAppDispatch();
 
   function clickAct() {
+    let ratingValue = localStorage.getItem(props.id);
+    //if a person already has given this movie a rating, the rating will be disabled
+    let disableRating : boolean = true;
+    //if ratingValue is null, the person hasn't given this movie a rating before
+    if (ratingValue === null) {
+      localStorage.setItem(props.id, "0");
+      ratingValue = "0";
+      disableRating = false;
+    }
+
     dispatch(updateModalInfo(
-      {title: props.title, year: props.year, image: props.pictureURL,
-        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, stars: 0, showing: true}
+      {id: props.id, title: props.title, year: props.year, image: props.pictureURL,
+        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, 
+        disableRating: disableRating, stars: ratingValue, showing: true}
       ));
   }
 
