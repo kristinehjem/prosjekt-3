@@ -27,9 +27,12 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         movie: {
             type: MovieType,
+            args: {
+                id: {type: GraphQLString},
+            },
             resolve(parent, args) {
-                console.log("movie root quert");
-                return Movie.findbyId(args.id)
+                console.log("movie root query");
+                return Movie.findOne({id: args.id});
             }
         },
         movies: {
@@ -40,6 +43,7 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 console.log("movies root query");
+                //makes the years filter a regexp to be able to find all movies in a given decade
                 if (args.years.length === 0) {
                     return Movie.find({title: {$regex: new RegExp(args.title, "i")}});
                 }
