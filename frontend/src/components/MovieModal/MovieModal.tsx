@@ -10,9 +10,9 @@ import { updateModalInfo } from '../../features/modalInfo';
 import { useMutation } from '@apollo/client';
 import { ADD_USER_RATING } from '../../queries/queries'
 import { MovieList } from '../../types'
-import './FilmModal.css';
+import './MovieModal.css';
 
-export default function FilmModal() {
+export default function MovieModal() {
 
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const dispatch = useAppDispatch();

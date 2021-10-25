@@ -1,6 +1,7 @@
 import './App.css';
-import FilmGrid from '../components/FilmGrid/FilmGrid';
+import MovieGrid from '../components/MovieGrid/MovieGrid';
 import SideBar from '../components/SideBar/SideBar';
+import MovieModal from '../components/MovieModal/MovieModal';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
@@ -27,7 +28,7 @@ function App() {
               <SideBar></SideBar>
             </div>
             <div className="filmgrid">
-              <FilmGrid></FilmGrid>
+              <MovieGrid></MovieGrid>
             </div>
           </div>
         </div>

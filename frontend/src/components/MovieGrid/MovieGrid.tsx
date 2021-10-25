@@ -1,16 +1,16 @@
-import "./FilmGrid.css";
+import "./MovieGrid.css";
 import Grid from '@mui/material/Grid';
-import FilmCard from '../FilmCard/FilmCard'
+import MovieCard from '../MovieCard/MovieCard'
 import { useQuery } from '@apollo/client';
 import { GET_MOVIES } from '../../queries/queries';
 import { useAppSelector } from '../../features/hooks';
-import FilmModal from '../../components/FilmModal/FilmModal';
+import MovieModal from '../../components/MovieModal/MovieModal';
 import { Movie, MovieList, YearFilter } from '../../types'
 import CircularProgress from '@mui/material/CircularProgress';
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 
-export default function FilmGrid() {
+export default function MovieGrid() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
   const searchFilter = useAppSelector((state) => state.searchFilter.value);
@@ -36,7 +36,7 @@ export default function FilmGrid() {
     else {
     movies = Object.values(data)[0].map((movie: Movie) =>
     <div key={movie.id} className="film">
-      <FilmCard
+      <MovieCard
         id = {movie.id}
         title={movie.title}
         year={movie.year}
@@ -53,11 +53,9 @@ export default function FilmGrid() {
     </div>
   }
   return (
-    <div id="filmgrid-wrapper">
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="filmGrid">
-        {movies}
-      </Grid>
-      {modalInfo.showing ? <FilmModal/> : null}
+    <div className="filmgrid-wrapper">
+        <div className="movieList">{movies}</div>
+        {modalInfo.showing ? <MovieModal/> : null}
     </div>
   )
 }

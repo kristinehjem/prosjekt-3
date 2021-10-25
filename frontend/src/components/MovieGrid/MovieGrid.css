@@ -1,0 +1,36 @@
+.filmgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    height: 100%;
+    gap: 10px;
+    justify-items: center;
+    background-color: #d7d7d7;
+    width: 100%;
+    padding: 3vh;
+}
+
+.filmgrid-wrapper {
+    margin: 5% 5%;
+    width: 100%;
+    height: 100%;
+    background-color: #d7d7d7;
+    padding: 3vh;
+}
+
+.searchFeedback {
+    color: black;
+}
+
+.movieList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    height: 100%;
+    gap: 10px;
+    justify-items: center;
+}
+
+@media (min-width: 550px) {
+    .filmgrid {
+        overflow-y: auto;
+    }
+}
