@@ -15,7 +15,8 @@ export default function FilmGrid() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
   const searchFilter = useAppSelector((state) => state.searchFilter.value);
-  const [sorting, setSorting] = useState<String>("rank");
+  //"title" if the movies will be sorted by title, empty string "" if the movies will be sorted by rank(which is the default)
+  const [sorting, setSorting] = useState<String>("");
 
   let clickedFilters: String[] = [];
 
@@ -27,7 +28,7 @@ export default function FilmGrid() {
   }
 
   const { loading, error, data } = useQuery<MovieList>(GET_MOVIES, {
-    variables: { title: searchFilter.title, years: clickedFilters},
+    variables: { title: searchFilter.title, years: clickedFilters, sort: sorting},
   });
 
   let movies = {};
@@ -64,7 +65,7 @@ export default function FilmGrid() {
       {data !== undefined ?
       <span className="custom-dropdown">
         <select onChange={changeSorting}>
-            <option value="rank">Sort by: rank</option>
+            <option value="">Sort by: rank</option>
             <option value="title">Sort by: title</option>  
         </select>
     </span>
