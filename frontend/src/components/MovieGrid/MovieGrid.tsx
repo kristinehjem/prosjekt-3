@@ -1,6 +1,6 @@
-import "./FilmGrid.css";
+import "./MovieGrid.css";
 import Grid from '@mui/material/Grid';
-import FilmCard from '../FilmCard/FilmCard'
+import MovieCard from '../MovieCard/MovieCard'
 import { useQuery } from '@apollo/client';
 import { GET_MOVIES } from '../../queries/queries';
 import { useAppSelector } from '../../features/hooks';
@@ -25,7 +25,7 @@ export interface YearFilter {
   year: string,
 }
 
-export default function FilmGrid() {
+export default function MovieGrid() {
 
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
   const searchFilter = useAppSelector((state) => state.searchFilter.value);

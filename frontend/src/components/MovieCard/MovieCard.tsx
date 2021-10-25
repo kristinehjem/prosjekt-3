@@ -5,9 +5,9 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
-import './FilmCard.css'
+import './MovieCard.css'
 
-export default function FilmCard(props: {title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
+export default function MovieCard(props: {title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
   const dispatch = useAppDispatch();
 
   function clickAct() {

@@ -29,7 +29,7 @@
     justify-items: center;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 550px) {
     .filmgrid {
         overflow-y: auto;
     }

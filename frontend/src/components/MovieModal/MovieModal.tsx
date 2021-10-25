@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
 import { useMutation, gql } from '@apollo/client';
 //import ADD_USER_RATING from '../../queries/queries';
-import './FilmModal.css';
+import './MovieModal.css';
 
 interface Movie {
   id: string,
@@ -36,7 +36,7 @@ const ADD_USER_RATING = gql`
   }
 `
 
-export default function FilmModal() {
+export default function MovieModal() {
 
   //adduserrating is function to call when you want to do the mutation to the database
   const [adduserrating, { data, loading, error }] = useMutation<MoviesList>(ADD_USER_RATING);
