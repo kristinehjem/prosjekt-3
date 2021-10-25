@@ -19,6 +19,9 @@ export default function MovieCard(props: {id: string, title: string, year: strin
       localStorage.setItem(props.id, "0");
       ratingValue = "0";
       disableRating = false;
+    //if ratingValue is 0, the person hasn't given this movie a rating before
+    } else if (ratingValue === "0"){
+      disableRating = false;
     }
 
     dispatch(updateModalInfo(
