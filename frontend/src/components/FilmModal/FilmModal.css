@@ -1,11 +1,11 @@
 
 #modalBox {
     display: grid;
-    grid-template-columns: 50% auto;
+    grid-template-columns: 40% auto;
     grid-template-areas: "button button"
                         "image info"
                         "rating rating";
-    padding: 3vw;
+    padding: 2vw;
     padding-top: 1vw;
     position: absolute;
     transform: translate(-50%, -50%);
@@ -22,14 +22,15 @@
 
 #exitButton {
     grid-area: button;
-    max-width: 2vw;
-    max-height: 2vh;
+    max-width: 3vw;
+    max-height: 3vh;
     min-width: 1vw;
     min-height: 1vh;
-    font-size: 1.2vh;
-    margin: 0.5vw;
+    font-size: 1.5vh;
+    margin: 0.2vw;
     color: white;
     border-color: white;
+    margin-left: 90%;
 }
 
 #image {
@@ -47,13 +48,23 @@
 
 #filmFacts{
     padding: 1vw;
+    padding-top: 2vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+#filmFacts .Typography {
+    font-size: 35px;
 }
 
 @media screen and (max-width: 600px) {
     #modalBox {
         width: 75%;
+    }
+}
+
+@media screen and (max-height: 500px){
+    #movieTitle {
+        font-size: 14px;
     }
 }

@@ -6,12 +6,15 @@ import { GET_MOVIES } from '../../queries/queries';
 import { useAppSelector } from '../../features/hooks';
 import FilmModal from '../../components/FilmModal/FilmModal';
 import { Movie, MovieList, YearFilter } from '../../types'
+import CircularProgress from '@mui/material/CircularProgress';
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
 
 export default function FilmGrid() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const yearFilter = useAppSelector((state) => state.yearFilter.value);
+  const searchFilter = useAppSelector((state) => state.searchFilter.value);
+
   let clickedFilters: String[] = [];
 
   //finding the filters that are checked
@@ -22,11 +25,15 @@ export default function FilmGrid() {
   }
 
   const { loading, error, data } = useQuery<MovieList>(GET_MOVIES, {
-    variables: { title: "", years: clickedFilters},
+    variables: { title: searchFilter.title, years: clickedFilters},
   });
 
   let movies = {};
   if (data !== undefined) {
+    if (data.movies.length === 0) {
+      movies = <div className = "searchFeedback">There are no movies with this title.</div>
+    }
+    else {
     movies = Object.values(data)[0].map((movie: Movie) =>
     <div key={movie.id} className="film">
       <FilmCard
@@ -38,8 +45,12 @@ export default function FilmGrid() {
         rank={movie.rank}
         imdbRatingCount={movie.imdbRatingCount} />
     </div>);
+    }
   } else {
-    movies = <div>loading...</div>
+    movies = <div className = "searchFeedback" >
+      <p>loading</p>
+      <CircularProgress color='inherit'/>
+    </div>
   }
   return (
     <div id="filmgrid-wrapper">

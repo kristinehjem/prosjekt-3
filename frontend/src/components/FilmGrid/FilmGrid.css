@@ -4,8 +4,15 @@
     height: 100%;
     gap: 10px;
     justify-items: center;
+    background-color: #d7d7d7;
+    width: 100%;
+    padding: 3vh;
 }
 
 .filmgrid-wrapper {
     margin: 5% 5%;
+}
+
+.searchFeedback {
+    color: black;
 }
