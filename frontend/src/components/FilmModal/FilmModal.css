@@ -30,7 +30,7 @@
     margin: 0.2vw;
     color: white;
     border-color: white;
-    margin-left: 93%;
+    margin-left: 90%;
 }
 
 #image {
@@ -48,9 +48,13 @@
 
 #filmFacts{
     padding: 1vw;
+    padding-top: 2vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+#filmFacts .Typography {
+    font-size: 35px;
 }
 
 @media screen and (max-width: 600px) {
