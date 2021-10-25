@@ -27,7 +27,7 @@ function App() {
             <div className="sidebar">
               <SideBar></SideBar>
             </div>
-            <div className="filmgrid">
+            <div className="moviegrid">
               <MovieGrid></MovieGrid>
             </div>
           </div>
