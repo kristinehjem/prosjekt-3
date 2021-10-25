@@ -5,25 +5,9 @@ import { useQuery } from '@apollo/client';
 import { GET_MOVIES } from '../../queries/queries';
 import { useAppSelector } from '../../features/hooks';
 import FilmModal from '../../components/FilmModal/FilmModal';
+import { Movie, MovieList, YearFilter } from '../../types'
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
-interface Movie {
-  id: string,
-  rank: string
-  title: string,
-  year: string,
-  image: string,
-  imdbRating: string,
-  imdbRatingCount: string,
-}
-
-export interface MoviesList {
-  movies: Movie[]
-}
-
-export interface YearFilter {
-  year: string,
-}
 
 export default function FilmGrid() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
@@ -37,7 +21,7 @@ export default function FilmGrid() {
     }
   }
 
-  const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES, {
+  const { loading, error, data } = useQuery<MovieList>(GET_MOVIES, {
     variables: { title: "", years: clickedFilters},
   });
 

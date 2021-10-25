@@ -5,7 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import { useAppDispatch } from '../../features/hooks';
 import { updateModalInfo } from '../../features/modalInfo';
-import { useAppSelector } from '../../features/hooks';
 import './FilmCard.css'
 
 export default function FilmCard(props: {id: string, title: string, year: string, pictureURL: string, rating: string, rank: string, imdbRatingCount: string}) {
@@ -13,13 +12,14 @@ export default function FilmCard(props: {id: string, title: string, year: string
 
   function clickAct() {
     dispatch(updateModalInfo(
-      {id: props.id, showing: true}
+      {id: props.id, title: props.title, year: props.year, image: props.pictureURL,
+        rating: props.rating, rank: props.rank, imdbRatingCount: props.imdbRatingCount, showing: true}
       ));
   }
 
   return (
   <div>
-    <Card sx={{minWidth: '200px', margin: '5px'}}className="filmCard" onClick={() => {clickAct()}}>
+    <Card sx={{minWidth: '200px', margin: '5px'}} className="filmCard" onClick={() => {clickAct()}}>
       <CardActionArea sx={{backgroundColor: 'black'}}>
         <CardMedia
           component="img"
