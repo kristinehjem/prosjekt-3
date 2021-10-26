@@ -27,9 +27,12 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         movie: {
             type: MovieType,
+            args: {
+                id: {type: GraphQLString},
+            },
             resolve(parent, args) {
                 console.log("movie root query");
-                return Movie.findbyId(args.id)
+                return Movie.findOne({id: args.id});
             }
         },
         movies: {
@@ -37,6 +40,7 @@ const RootQuery = new GraphQLObjectType({
             args: {
                 title: { type: GraphQLString },
                 years: { type: GraphQLList(GraphQLString) },
+                sort: {type: GraphQLString},
                 offset: { type: GraphQLInt },
                 limit: { type: GraphQLInt }
 
@@ -52,7 +56,7 @@ const RootQuery = new GraphQLObjectType({
                     condition = Object.assign(condition, yearFilterCondition)
                 }
                 try {
-                    const res = await Movie.paginate(condition, { offset: args.offset, limit: args.limit })
+                    const res = await Movie.paginate(condition, { offset: args.offset, limit: args.limit }).sort({title: 1})
                     return res.docs;
                 } catch (error) {
                     console.log(error);
