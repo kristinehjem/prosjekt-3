@@ -42,42 +42,46 @@ export default function FilmGrid() {
   }
 
   const { loading, error, data } = useQuery<MoviesList>(GET_MOVIES, {
-    variables: { title: searchFilter.title, years: clickedFilters, offset: (page - 1) * itemPerPage, limit: itemPerPage,},
+    variables: { title: searchFilter.title, years: clickedFilters, offset: (page - 1) * itemPerPage, limit: itemPerPage, },
   });
   useEffect(() => {
     if (data !== undefined && data !== null) {
       let movies;
       if (data.movies.length === 0) {
-        movies = [<div className = "searchFeedback">There are no movies with this title.</div>]
+        movies = [<div className="searchFeedback">There are no movies with this title.</div>]
         setFilmCards(movies)
       }
       else {
-      movies = Object.values(data)[0] || []
-      setFilmCards(movies.map((movie: Movie) =>
-        <div key={movie.id} className="film">
-          <FilmCard
-            title={movie.title}
-            year={movie.year}
-            pictureURL={movie.image}
-            rating={movie.imdbRating}
-            rank={movie.rank} 
-            imdbRatingCount={movie.imdbRatingCount} />
-        </div>));
+        movies = Object.values(data)[0] || []
+        setFilmCards(movies.map((movie: Movie) =>
+          <div key={movie.id} className="film">
+            <FilmCard
+              title={movie.title}
+              year={movie.year}
+              pictureURL={movie.image}
+              rating={movie.imdbRating}
+              rank={movie.rank}
+              imdbRatingCount={movie.imdbRatingCount} />
+          </div>));
       }
     }
   }, [data])
+  //Resets pagination when search has changes
+  useEffect(() => {
+    setPage(1)
+  }, [searchFilter]);
   return (
     <div id="filmgrid-wrapper">
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="filmGrid">
         {filmCards}
       </Grid>
       {!filmCards &&
-        <div className = "searchFeedback">
+        <div className="searchFeedback">
           Loading...
         </div>
       }
-      <button type="button" onClick={() => { setPage(page - 1)}}>Forrige side</button>
-      <button type="button" onClick={() => { setPage(page + 1)}}>Neste side</button>
+      <button type="button" onClick={() => { setPage(page - 1) }}>Forrige side</button>
+      <button type="button" onClick={() => { setPage(page + 1) }}>Neste side</button>
     </div>
   )
 }
