@@ -12,6 +12,6 @@ const movieSchema = new Schema({
     imdbRatingCount: String,
 });
 
-filmSchema.plugin(mongoosePaginate);
+movieSchema.plugin(mongoosePaginate);
 //tror kanskje ikke det er posts som skal stå der
 module.exports = mongoose.model('posts', movieSchema); 
