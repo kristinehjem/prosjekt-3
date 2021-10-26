@@ -56,7 +56,11 @@ const RootQuery = new GraphQLObjectType({
                     condition = Object.assign(condition, yearFilterCondition)
                 }
                 try {
-                    const res = await Movie.paginate(condition, { offset: args.offset, limit: args.limit }).sort({title: 1})
+                    const res = await Movie.paginate(condition, {
+                        offset: args.offset,
+                        limit: args.limit,
+                        sort: args.sort || "",
+                    });
                     return res.docs;
                 } catch (error) {
                     console.log(error);
