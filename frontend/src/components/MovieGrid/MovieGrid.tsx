@@ -76,6 +76,15 @@ export default function MovieGrid() {
     setPage(1)
   }, [searchFilter]);
 
+  let selectedOption: String = "";
+
+  if (sorting === "") {
+    selectedOption = "Sort by: rank"
+  }
+  if (sorting === "title") {
+    selectedOption = "Sort by: title"
+  }
+
   function changeSorting(event: React.ChangeEvent<HTMLSelectElement>) {
     setSorting(event.target.value);
   }
@@ -85,6 +94,9 @@ export default function MovieGrid() {
       {data !== undefined ?
       <span className="custom-dropdown">
         <select onChange={changeSorting}>
+          <option value="" selected disabled hidden>
+            {selectedOption}
+            </option>
             <option value="">Sort by: rank</option>
             <option value="title">Sort by: title</option>  
         </select>
