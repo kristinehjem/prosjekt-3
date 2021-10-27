@@ -88,6 +88,7 @@ export default function MovieGrid() {
   function changeSorting(event: React.ChangeEvent<HTMLSelectElement>) {
     setSorting(event.target.value);
   }
+  
 
   return (
     <div className="moviegrid-wrapper">
@@ -104,8 +105,11 @@ export default function MovieGrid() {
         : null}
       <div className="movieList">{filmCards || loadingMessage}</div>
       {modalInfo.showing ? <MovieModal/> : null}
-      <button type="button" onClick={() => { setPage(page - 1) }}>Forrige side</button>
-      <button type="button" onClick={() => { setPage(page + 1) }}>Neste side</button>
+      <div className="pagination-wrapper">
+        <button type="button" disabled={(page === 1? true: false)} onClick={() => { setPage(page - 1) }}>Previous page</button>
+        <p>Page {page}</p>
+        <button type="button" disabled={(data !== undefined && data.movies.length < itemPerPage? true: false)} onClick={() => { setPage(page + 1) }}>Next page</button>
+    </div>
     </div>
   )
 }
