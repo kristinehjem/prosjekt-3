@@ -10,7 +10,7 @@ const options = {
 
 // source code for graphql + mongodb + apollo: https://github.com/iamshaunjp/graphql-playlist/tree/lesson-27
 
-mongoose.connect('mongodb://admin:gruppe41@it2810-41.idi.ntnu.no:27017/movies')
+mongoose.connect('mongodb://admin:gruppe41@localhost:27017/movies')
 mongoose.connection.on('connected', () => {
     console.log("Mongoose connected");
 })
