@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const mongoosePaginate = require("mongoose-paginate-v2");
+import * as mongoose from "mongoose";
+import * as mongoosePaginate from "mongoose-paginate-v2"
 const Schema = mongoose.Schema;
 
 const movieSchema = new Schema({
@@ -14,4 +14,4 @@ const movieSchema = new Schema({
 
 movieSchema.plugin(mongoosePaginate);
 //tror kanskje ikke det er posts som skal stå der
-module.exports = mongoose.model('posts', movieSchema); 
+export default mongoose.model('posts', movieSchema); 

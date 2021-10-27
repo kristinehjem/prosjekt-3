@@ -1,7 +1,7 @@
-const routes = require("./routes/movies_api.ts")
-const mongoose = require("mongoose")
-const express = require("express");
-const cors = require("cors");
+import routes from "./routes/movies_api";
+import * as mongoose from "mongoose";
+import * as express from "express";
+import * as cors from "cors";
 const app = express();
 const allowedOrigins = ['http://localhost:3000'];
 const options = {
