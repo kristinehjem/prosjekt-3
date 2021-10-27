@@ -1,70 +1,70 @@
-
 #modalBox {
-    display: grid;
-    grid-template-columns: 40% auto;
-    grid-template-areas: "button button"
-                        "image info"
-                        "rating rating";
-    padding: 2vw;
-    padding-top: 1vw;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    background-color: #1B1717;
-    color: white;
-    width: 50%;
-    box-shadow: 2;
-    /*p: 4,*/
-    border-radius: 20px;
-    background: linear-gradient( #1B1717 10%, #372e2e 100%);
+  display: grid;
+  grid-template-columns: 40% auto;
+  grid-template-areas:
+    "button button"
+    "image info"
+    "rating rating";
+  padding: 2vw;
+  padding-top: 1vw;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: #1b1717;
+  color: white;
+  width: 50%;
+  box-shadow: 2;
+  /*p: 4,*/
+  border-radius: 20px;
+  background: linear-gradient(#1b1717 10%, #372e2e 100%);
 }
 
 #exitButton {
-    grid-area: button;
-    max-width: 3vw;
-    max-height: 3vh;
-    min-width: 1vw;
-    min-height: 1vh;
-    font-size: 1.5vh;
-    margin: 0.2vw;
-    color: white;
-    border-color: white;
-    margin-left: 90%;
+  grid-area: button;
+  max-width: 3vw;
+  max-height: 3vh;
+  min-width: 1vw;
+  min-height: 1vh;
+  font-size: 1.5vh;
+  margin: 0.2vw;
+  color: white;
+  border-color: white;
+  margin-left: 90%;
 }
 
 #image {
-    grid-area: image;
+  grid-area: image;
 }
 
 #info {
-    grid-area: info;
+  grid-area: info;
 }
 
 #userRating {
-    grid-area: rating;
-    padding: 0.5vw;
+  grid-area: rating;
+  padding: 0.5vw;
 }
 
-#filmFacts{
-    padding: 1vw;
-    padding-top: 2vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+#filmFacts {
+  padding: 1vw;
+  padding-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 #filmFacts .Typography {
-    font-size: 35px;
+  font-size: 35px;
 }
 
 @media screen and (max-width: 600px) {
-    #modalBox {
-        width: 75%;
-    }
+  #modalBox {
+    width: 75%;
+  }
 }
 
-@media screen and (max-height: 500px){
-    #movieTitle {
-        font-size: 14px;
-    }
+@media screen and (max-height: 500px) {
+  #movieTitle {
+    font-size: 14px;
+  }
 }

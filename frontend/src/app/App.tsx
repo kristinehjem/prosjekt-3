@@ -10,7 +10,6 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 if (window.Cypress) {
   // @ts-ignore
   window.store = store;
-  // @ts-ignore
 }
 
 // apollo client setup

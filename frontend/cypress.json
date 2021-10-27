@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:3000",
   "experimentalStudio": true,
-  "screenshotOnRunFailure": false
+  "screenshotOnRunFailure": false,
+  "video": false
 }
