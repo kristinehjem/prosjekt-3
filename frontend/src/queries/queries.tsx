@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const GET_MOVIES = gql`
-query getMovies($title: String, $years: [String], $sort: String)  {
-   movies (title: $title, years: $years, sort: $sort) {
+query getMoviesByYear($title: String, $years: [String], $offset: Int, $limit: Int, $sort: String)  {
+   movies (title: $title, years: $years, offset: $offset, limit: $limit, sort: $sort) {
     id
     title
     rank
