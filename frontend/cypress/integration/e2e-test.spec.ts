@@ -1,3 +1,7 @@
+// import { itemPerPage } from "../../../src/components/MovieGrid/MovieGrid";
+// const itemPerPage = require("../../../src/components/MovieGrid/MovieGrid");
+const itemPerPage = 5;
+
 describe("Automated e2e test", () => {
   before(() => {
     cy.visit("/");
@@ -13,25 +17,26 @@ describe("Automated e2e test", () => {
     cy.wait(1000); // Wait for search to be compleete
 
     // Check that only two movies renders
-    cy.get("#filmgrid-wrapper")
+    cy.get(".moviegrid-wrapper")
       .contains(".film", "The Dark Knight")
       .should("exist");
 
-    cy.get("#filmgrid-wrapper")
+    cy.get(".moviegrid-wrapper")
       .contains(".film", "The Dark Knight Rises")
       .should("exist");
 
-    cy.get("#filmgrid-wrapper").children().children().should("have.length", 2);
+    // Should show 2 movies, and including the sorting-dropdown it should have length = 3
+    cy.get(".moviegrid-wrapper").children().children().should("have.length", 3);
   });
 
   it("Filters on year 2010's returns only 'The Dark Knight Rises'", () => {
     cy.get("#\\32 010\\'s-checkbox").check();
 
-    cy.get("#filmgrid-wrapper")
+    cy.get(".moviegrid-wrapper")
       .contains(".film", "The Dark Knight Rises")
       .should("exist");
 
-    cy.get("#filmgrid-wrapper").children().children().should("have.length", 1);
+    cy.get(".moviegrid-wrapper").children().children().should("have.length", 1);
   });
 
   it("Shows modal when clicked", () => {
@@ -47,7 +52,7 @@ describe("Automated e2e test", () => {
     let ratingBefore;
     let ratingAfter;
 
-    cy.get("#filmFacts > h6:nth-child(4)").then(($ratingDOMObject) => {
+    cy.get("#movieFacts > h6:nth-child(4)").then(($ratingDOMObject) => {
       ratingBefore = parseInt($ratingDOMObject.text().slice(-7));
       console.log("BEFORE: ", ratingBefore);
     });
@@ -57,7 +62,7 @@ describe("Automated e2e test", () => {
       cy.get("input").first().check({ force: true });
     });
 
-    cy.get("#filmFacts > h6:nth-child(4)").then(($ratingDOMObject) => {
+    cy.get("#movieFacts > h6:nth-child(4)").then(($ratingDOMObject) => {
       ratingAfter = parseInt($ratingDOMObject.text().slice(-7));
       console.log("AFTER: ", ratingAfter);
       expect(ratingAfter).equal(ratingBefore + 1);
@@ -72,9 +77,10 @@ describe("Automated e2e test", () => {
   it("Resets search", () => {
     cy.get("#\\32 010\\'s-checkbox").uncheck();
     cy.get(":nth-child(3) > .MuiIconButton-label > .MuiSvgIcon-root").click();
-    cy.get("#filmgrid-wrapper")
+    cy.get(".moviegrid-wrapper")
       .children()
       .children()
-      .should("have.length", 250); // TODO: Change this to number of films per page when paginated
+      .should("have.length", itemPerPage + 1);
+    // itemsPerPage + 1 because the sorting–dropdown also counts as a child
   });
 });

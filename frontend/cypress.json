@@ -2,5 +2,9 @@
   "baseUrl": "http://localhost:3000",
   "experimentalStudio": true,
   "screenshotOnRunFailure": false,
-  "video": false
+  "video": false,
+  "component": {
+    "testFiles": "**/*.spec.*",
+    "componentFolder": "../frontend/src/"
+  }
 }
