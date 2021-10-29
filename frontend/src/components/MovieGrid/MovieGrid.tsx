@@ -18,7 +18,7 @@ export default function MovieGrid() {
 
   const [page, setPage] = useState<number>(1);
   const [filmCards, setFilmCards] = useState<ReactChild[]>()
-  const itemPerPage = 5;
+  const itemPerPage = 14;
   //"title" if the movies will be sorted by title, empty string "" if the movies will be sorted by rank(which is the default)
   const [sorting, setSorting] = useState<String>("");
 
