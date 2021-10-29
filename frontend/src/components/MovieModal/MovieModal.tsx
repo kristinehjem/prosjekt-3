@@ -58,7 +58,7 @@ export default function MovieModal() {
                 <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
                 <Typography variant="subtitle1">Rating: {modalInfo.rating.slice(0, 3)}</Typography>
                 <Typography variant="subtitle1">Year of release: {modalInfo.year}</Typography>
-                <Typography variant="subtitle1">Rating count: {modalInfo.imdbRatingCount}</Typography>
+                <Typography variant="subtitle1">Number of ratings: {modalInfo.imdbRatingCount}</Typography>
               </div>
             </div>
             <Typography component="legend" id="userRating">Add your rating</Typography>
