@@ -15,8 +15,8 @@ if (window.Cypress) {
 
 // apollo client setup
 const client = new ApolloClient({
-  uri: "http://localhost:8081/graphql",
-  cache: new InMemoryCache(),
+  uri: 'http://it2810-41.idi.ntnu.no:8081/graphql',
+  cache: new  InMemoryCache()
 });
 
 function App() {

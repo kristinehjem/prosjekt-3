@@ -3,7 +3,7 @@ import * as mongoose from "mongoose";
 import * as express from "express";
 import * as cors from "cors";
 const app = express();
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://it2810-41.idi.ntnu.no'];
 const options = {
     origin: allowedOrigins
 }
