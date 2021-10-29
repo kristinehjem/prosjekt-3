@@ -10,7 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { ReactChild, useEffect, useState } from "react";
 
 // apollo with typescript: https://www.apollographql.com/docs/react/development-testing/static-typing/
-export const itemPerPage = 5;
+export const itemPerPage = 14;
 
 export default function MovieGrid() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
@@ -97,7 +97,6 @@ export default function MovieGrid() {
   function changeSorting(event: React.ChangeEvent<HTMLSelectElement>) {
     setSorting(event.target.value);
   }
-  
 
   return (
     <div className="moviegrid-wrapper">
@@ -113,12 +112,32 @@ export default function MovieGrid() {
         </span>
       ) : null}
       <div className="movieList">{filmCards || loadingMessage}</div>
-      {modalInfo.showing ? <MovieModal/> : null}
+      {modalInfo.showing ? <MovieModal /> : null}
       <div className="pagination-wrapper">
-        <button type="button" disabled={(page === 1? true: false)} onClick={() => { setPage(page - 1) }}>Previous page</button>
+        <button
+          type="button"
+          disabled={page === 1 ? true : false}
+          onClick={() => {
+            setPage(page - 1);
+          }}
+        >
+          Previous page
+        </button>
         <p>Page {page}</p>
-        <button type="button" disabled={(data !== undefined && data.movies.length < itemPerPage? true: false)} onClick={() => { setPage(page + 1) }}>Next page</button>
-    </div>
+        <button
+          type="button"
+          disabled={
+            data !== undefined && data.movies.length < itemPerPage
+              ? true
+              : false
+          }
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >
+          Next page
+        </button>
+      </div>
     </div>
   );
 }

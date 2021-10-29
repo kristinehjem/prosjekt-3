@@ -79,7 +79,7 @@ export default function MovieModal() {
               Year of release: {modalInfo.year}
             </Typography>
             <Typography variant="subtitle1">
-              Rating count: {modalInfo.imdbRatingCount}
+              Number of ratings: {modalInfo.imdbRatingCount}
             </Typography>
           </div>
         </div>
@@ -87,7 +87,6 @@ export default function MovieModal() {
           Add your rating
         </Typography>
         <Rating
-          id="rating-selector"
           disabled={modalInfo.disableRating}
           defaultValue={0}
           name="customized-10"
