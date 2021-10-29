@@ -87,6 +87,7 @@ export default function MovieModal() {
           Add your rating
         </Typography>
         <Rating
+          id="rating-selector"
           disabled={modalInfo.disableRating}
           defaultValue={0}
           name="customized-10"
