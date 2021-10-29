@@ -1,6 +1,7 @@
 // import { itemPerPage } from "../../../src/components/MovieGrid/MovieGrid";
 // const itemPerPage = require("../../../src/components/MovieGrid/MovieGrid");
-const itemPerPage = 5;
+const itemPerPage = 14;
+const numDefaultElementsInMovieGrid = 4;
 
 describe("Automated e2e test", () => {
   before(() => {
@@ -25,8 +26,11 @@ describe("Automated e2e test", () => {
       .contains(".film", "The Dark Knight Rises")
       .should("exist");
 
-    // Should show 2 movies, and including the sorting-dropdown it should have length = 3
-    cy.get(".moviegrid-wrapper").children().children().should("have.length", 3);
+    // Should show 2 movies, dropdown and 3 elements for pagination = 6 elements
+    cy.get(".moviegrid-wrapper")
+      .children()
+      .children()
+      .should("have.length", 2 + numDefaultElementsInMovieGrid);
   });
 
   it("Filters on year 2010's returns only 'The Dark Knight Rises'", () => {
@@ -36,7 +40,10 @@ describe("Automated e2e test", () => {
       .contains(".film", "The Dark Knight Rises")
       .should("exist");
 
-    cy.get(".moviegrid-wrapper").children().children().should("have.length", 1);
+    cy.get(".moviegrid-wrapper")
+      .children()
+      .children()
+      .should("have.length", 1 + numDefaultElementsInMovieGrid);
   });
 
   it("Shows modal when clicked", () => {
@@ -80,7 +87,6 @@ describe("Automated e2e test", () => {
     cy.get(".moviegrid-wrapper")
       .children()
       .children()
-      .should("have.length", itemPerPage + 1);
-    // itemsPerPage + 1 because the sorting–dropdown also counts as a child
+      .should("have.length", itemPerPage + numDefaultElementsInMovieGrid);
   });
 });
