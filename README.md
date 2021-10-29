@@ -8,11 +8,11 @@ Vi har brukt redux for å håndtere state management. Komponentene som lagrer st
 ## Database
 Vi har brukt MongoDB som databasen. Vi valgte dette fordi det er en velprøvd teknologi og den fungerer godt med GraphQL. Databasen er også en noSQL database som gjør den fleksibel og man behøver ikke forholde seg til rigide SQL tabeller. Vi vurderte å lagre reviews til hver film og da hadde en noSQL database vært svært godt egnet. Selv om vi endte med å kun lagre reviews så er MongoDB fortsatt et godt valg og det har få ulemper knyttet til seg med vårt bruksområde. 
 
-## Backend
-For å koble backenden opp med databasen har vi brukt rammeverket Express, som blir brukt i `index.ts` til å koble opp serveren. Hvorfor valgte vi express Det er også express som kobler GraphQL med databasen i filen movie_api.ts. GraphQL er biblioteket vi har brukt for å definere queries og mutations som skal sendes til databasen. I filen `Schema.ts` har vi definert hvordan en Movie ser ut i databasen, med de attributtene vi vil hente ut. Her blir også alle queriesene og mutationenes definert. De sier hvilke potensielle argumenter man kan få inn fra frontend, hvordan queriet skal se ut til databasen, og hva man returnerer tilbake til frontend.
+## Backend - **TODO**
+For å koble backenden opp med databasen har vi brukt rammeverket Express, som blir brukt i `index.ts` til å koble opp serveren. **Hvorfor valgte vi express.** Det er også express som kobler GraphQL med databasen i filen movie_api.ts. GraphQL er biblioteket vi har brukt for å definere queries og mutations som skal sendes til databasen. I filen `Schema.ts` har vi definert hvordan en Movie ser ut i databasen, med de attributtene vi vil hente ut. Her blir også alle queriesene og mutationenes definert. De sier hvilke potensielle argumenter man kan få inn fra frontend, hvordan queriet skal se ut til databasen, og hva man returnerer tilbake til frontend.
  
-## Queries
-Vet ikke om GraphQL skal skrives om i backend eller i queries.
+## Queries - **TODO**
+**Vet ikke om GraphQL skal skrives om i backend eller i queries.**
 Apollo er brukt som bibliotek for å skrive queries fra frontend som blir tatt i mot av GraphQL i backend. Apollo kommer med en innebygd cache, hvor den vil lagre data som mottas fra databasen automatisk. Dette hindrer at unødvendige kall fra databasen blir gjort, da den vil bruke dataen i cachen hvis den eksisterer der. For å oppdatere cachen når vi gjør mutations har vi i mutation-uttrykket vårt bedt om å få tilbake id og title på movie-objektet vi endrer. Dette vil da automatisk oppdatere cache-versjonen av movie-objektet som gjør at frontend og databasen alltid er like.
 
 Vi har kun et query for å laste inn data. Det tar inn flere argumenter som kan variere ut fra filtrering og sortering som er valgt. Backend håndterer hvordan query til databasen skal se ut basert på argumentene den tar inn.
@@ -25,7 +25,7 @@ Her er oversikt over hvordan vi har løst de ulike funksjonalitetskravene:
 ### Søkemulighet
 Vi har implementert en SearchField-komponenent hvor brukeren kan søke på tittel. Man må ikke skrive hele tittelen for å få opp treff, men databasen vil se etter movie-objekter som har en tittel som inneholder strengen som er skrevet inn i tekstfeltet. For at queriet som skal hente filmene får inn riktig argument blir den oppdaterte verdien i SearchField-komponenten lagret i redux. Verdien brukes så i MovieGrid til å gjøre databasekall. I SearchField er det lagt inn en delay på redux-kallet for å ikke kalle på databasen for hver bokstav som skrives. Søkingen kan gjøres i kombinasjon med filtreringen av årstall.
 
-### Dynamisk lasting av data
+### Dynamisk lasting av data - **TODO: Lars**
 Bruker offsett og limit argumenter i queriesTrenger mer her fra Lars
 Detaljert visning av objekter
 For å vise detaljer om hvert objekt har vi lagd en Modal-komponent. All informasjon om filmen som vises i modalen er lagret i Redux. Man kan bare åpne en modal om gangen, og redux holder dermed bare info om en modal om gangen. Dette synes vi var bra gjenbruk av kode, og man slipper unødvendig lagring av data.
@@ -41,7 +41,7 @@ Brukergenerert data blir lagret i databasen ved at en bruker gir sin rating på 
 https://www.w3.org/WAI/fundamentals/accessibility-principles/#understandable 
 Vi har valgt å fokusere på forståelig informasjon og brukergrensesnitt. Det er brukt enkle ord og fraser som virker forklarende til applikasjonens funksjonalitet. Ved innlasting av filmer vises det enkle meldinger som forklarer brukeren hvorfor ingen filmer vises - enten at de laster eller at det ikke er noen treff. Siden har et forutsigbart brukergrensesnitt der elementenes plassering og funksjonalitet er konsekvent. Eksempelvis er redux benyttet for å håndtere en felles modal med funksjonalitet og ui som hver film benytter i sin presentasjon. Det er viktig å kunne reversere feil brukeren måtte gjøre, og dette er løst ved å ha toggle-checkboxer og et “avbryt”-felt på søkefeltet. Ved rating av en film derimot, lagres verdien umiddelbart og det er ikke mulig å reversere ved eventuelle feil. Dette kan være uheldig, men vi har prioritert å sikre databasen ved at én bruker ikke kan skrive ratinger til databasen utallige ganger.
 
-## Brukte biblioteker
+## Brukte biblioteker - **TODO**
 I frontend har vi tatt mye i bruk material-ui for å style komponenter. 
 Har allerede nevnt GraphQL, Apollo, Redux, express 
 Brukt mye material-UI
