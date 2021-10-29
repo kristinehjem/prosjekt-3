@@ -3,13 +3,13 @@ import * as mongoosePaginate from "mongoose-paginate-v2"
 const Schema = mongoose.Schema;
 
 const movieSchema = new Schema({
-    id: String,
-    rank: String,
-    title: String,
-    year: String,
-    image: String,
-    imdbRating: String,
-    imdbRatingCount: String,
+  id: String,
+  rank: String,
+  title: String,
+  year: String,
+  image: String,
+  imdbRating: String,
+  imdbRatingCount: String,
 });
 
 movieSchema.plugin(mongoosePaginate);
