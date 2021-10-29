@@ -1,14 +1,12 @@
-const express = require("express")
-const MovieModel = require("../models/movie.ts");
-const { graphqlHTTP } = require('express-graphql');
-const schema = require('../schema/schema.ts');
+import * as express from "express";
+import { graphqlHTTP } from "express-graphql";
+import schema from "../schema/schema"
 
 const router = express.Router();
-
 
 router.post("/graphql", graphqlHTTP({
     schema,
     graphiql: true
 }));
 
-module.exports = router;
+export default router;

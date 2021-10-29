@@ -1,4 +1,4 @@
-const Movie = require('../models/movie.ts');
+import Movie from "../models/movie";
 
 const {
     GraphQLObjectType,
@@ -100,7 +100,7 @@ const Mutation = new GraphQLObjectType({
     }
 });
 
-module.exports = new GraphQLSchema({
+export default new GraphQLSchema({
     query: RootQuery,
     mutation: Mutation,
 });
