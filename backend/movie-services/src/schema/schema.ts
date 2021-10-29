@@ -11,13 +11,13 @@ const {
 const MovieType = new GraphQLObjectType({
     name: 'Movie',
     fields: () => ({
-        id: { type: GraphQLString},
-        rank: { type: GraphQLString},
-        title: { type: GraphQLString},
-        year: { type: GraphQLString},
-        image: { type: GraphQLString},
-        imdbRating: { type: GraphQLString},
-        imdbRatingCount: {type: GraphQLString},
+        id: { type: GraphQLString },
+        rank: { type: GraphQLString },
+        title: { type: GraphQLString },
+        year: { type: GraphQLString },
+        image: { type: GraphQLString },
+        imdbRating: { type: GraphQLString },
+        imdbRatingCount: { type: GraphQLString },
     })
 });
 
@@ -38,21 +38,37 @@ const RootQuery = new GraphQLObjectType({
         movies: {
             type: new GraphQLList(MovieType),
             args: {
-                title: {type: GraphQLString},
-                years: {type: GraphQLList(GraphQLString)}
+                title: { type: GraphQLString },
+                years: { type: GraphQLList(GraphQLString) },
+                sort: {type: GraphQLString},
+                offset: { type: GraphQLInt },
+                limit: { type: GraphQLInt }
+
             },
-            resolve(parent, args) {
+            async resolve(parent, args) {
                 console.log("movies root query");
-                //makes the years filter a regexp to be able to find all movies in a given decade
-                if (args.years.length === 0) {
-                    return Movie.find({title: {$regex: new RegExp(args.title, "i")}});
+                let condition = {
+                    title: { $regex: new RegExp(args.title, "i") }
+                };
+                if (args.years.length > 0) {
+                    let filters = args.years.map((filter) => new RegExp(filter));
+                    let yearFilterCondition = { year: { $in: filters } };
+                    condition = Object.assign(condition, yearFilterCondition)
                 }
-                let filters = args.years.map((filter) => new RegExp(filter));
-                return Movie.find({title: {$regex: new RegExp(args.title, "i")},
-                                    year: {$in: filters}});
-            }
-        },
-    }
+                try {
+                    const res = await Movie.paginate(condition, {
+                        offset: args.offset,
+                        limit: args.limit,
+                        sort: args.sort || "",
+                    });
+                    return res.docs;
+                } catch (error) {
+                    console.log(error);
+                    return error;
+                }
+            },
+        }
+    },
 });
 
 // Mutation for writing to the database
@@ -62,20 +78,20 @@ const Mutation = new GraphQLObjectType({
         addUserRating: {
             type: MovieType,
             args: {
-                title: {type: GraphQLString},
-                imdbRating: {type: GraphQLString},
-                imdbRatingCount: {type: GraphQLString},
+                title: { type: GraphQLString },
+                imdbRating: { type: GraphQLString },
+                imdbRatingCount: { type: GraphQLString },
             },
             resolve(parent, args) {
                 console.log("Mutation");
                 // source: https://stackoverflow.com/questions/48436366/how-to-make-update-mutation-graphql-plus-mongodb
                 return new Promise((resolve, reject) => {
                     Movie.findOneAndUpdate(
-                        {"title": args.title},
-                        {"$set": {imdbRating: args.imdbRating, imdbRatingCount: args.imdbRatingCount}},
-                        {"new": true} // returns
+                        { "title": args.title },
+                        { "$set": { imdbRating: args.imdbRating, imdbRatingCount: args.imdbRatingCount } },
+                        { "new": true } // returns
                     ).exec((err, res) => {
-                        if(err) reject(err)
+                        if (err) reject(err)
                         else resolve(res)
                     })
                 })

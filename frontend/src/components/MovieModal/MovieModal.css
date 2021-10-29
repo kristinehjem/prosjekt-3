@@ -46,14 +46,14 @@
   padding: 0.5vw;
 }
 
-#filmFacts {
+#movieFacts {
   padding: 1vw;
   padding-top: 2vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-#filmFacts .Typography {
+#movieFacts .Typography {
   font-size: 35px;
 }
 

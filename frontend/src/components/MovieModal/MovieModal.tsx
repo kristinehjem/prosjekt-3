@@ -10,9 +10,9 @@ import { updateModalInfo } from "../../features/modalInfo";
 import { useMutation } from "@apollo/client";
 import { ADD_USER_RATING } from "../../queries/queries";
 import { MovieList } from "../../types";
-import "./FilmModal.css";
+import "./MovieModal.css";
 
-export default function FilmModal() {
+export default function MovieModal() {
   const modalInfo = useAppSelector((state) => state.modalInfo.value);
   const dispatch = useAppDispatch();
 
@@ -20,6 +20,7 @@ export default function FilmModal() {
   const [adduserrating] = useMutation<MovieList>(ADD_USER_RATING); //funker dette nå???
 
   function calculateNewRating(newValue: number) {
+    localStorage.setItem(modalInfo.id, newValue.toString());
     const oldRating: number = parseFloat(modalInfo.rating);
     const oldRatingCount: number = parseInt(modalInfo.imdbRatingCount);
     const newRatingCount = oldRatingCount + 1;
@@ -40,6 +41,7 @@ export default function FilmModal() {
         rating: newRating.toString(),
         imdbRatingCount: newRatingCount.toString(),
         stars: newValue,
+        disableRating: true,
       })
     );
   }
@@ -60,15 +62,15 @@ export default function FilmModal() {
           src={modalInfo.image}
           id="image"
           style={{
-            width: "20vw",
-            height: "20vh",
+            width: "80%",
+            height: "100%",
           }}
         />
         <div id="info">
           <Typography variant="h6" sx={{ padding: "1vw" }}>
             {modalInfo.title}
           </Typography>
-          <div id="filmFacts">
+          <div id="movieFacts">
             <Typography variant="subtitle1">Rank: {modalInfo.rank}</Typography>
             <Typography variant="subtitle1">
               Rating: {modalInfo.rating.slice(0, 3)}
@@ -86,6 +88,7 @@ export default function FilmModal() {
         </Typography>
         <Rating
           id="rating-selector"
+          disabled={modalInfo.disableRating}
           defaultValue={0}
           name="customized-10"
           max={10}
