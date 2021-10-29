@@ -2,7 +2,6 @@
   "name": "prosjekt_3",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
   "dependencies": {
     "@apollo/client": "^3.4.16",
     "@emotion/react": "^11.4.1",
