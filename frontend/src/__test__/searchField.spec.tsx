@@ -13,9 +13,8 @@ describe("SearchField", () => {
     );
 
     cy.get("input").should("exist");
-    cy.get('input[placeholder="Movie Title"]').should(
-      "have.text",
-      "Movie Title"
-    );
+    cy.get("input")
+      .invoke("attr", "placeholder")
+      .should("equal", "Movie title");
   });
 });
