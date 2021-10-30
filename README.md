@@ -15,7 +15,7 @@ GraphQL er biblioteket vi har brukt for å definere queries og mutations som ska
  
 ## Queries
 GraphQL brukes både i frontend og i backend, de to delene er koblet sammen med ApolloClient, som er en del av apollo biblioteket.
-Det er for å skrive queries fra frontend som blir tatt i mot av GraphQL i backend. Apollo kommer med en innebygd cache, hvor den vil lagre data som mottas fra databasen automatisk. Dette hindrer at unødvendige kall fra databasen blir gjort, da den vil bruke dataen i cachen hvis den eksisterer der. For å oppdatere cachen når vi gjør mutations har vi i mutation-uttrykket vårt bedt om å få tilbake id og title på movie-objektet vi endrer. Dette vil da automatisk oppdatere cache-versjonen av movie-objektet som gjør at frontend og databasen alltid er like.
+For å skrive queries fra frontend som blir tatt i mot av GraphQL i backend har vi brukt ApolloClient sin useQuery. useQury er en React hook fra apollo biblioteket, som brukes til å sende queries med Apollo. I tilleg har Apollo en innebygd cache, hvor den vil lagre data som mottas fra databasen automatisk. Dette hindrer at unødvendige kall fra databasen blir gjort, da den vil bruke dataen i cachen hvis den eksisterer der. For å oppdatere cachen når vi gjør mutations har vi i mutation-uttrykket vårt bedt om å få tilbake id og title på movie-objektet vi endrer. Dette vil da automatisk oppdatere cache-versjonen av movie-objektet som gjør at frontend og databasen alltid er like.
 
 Vi har kun et query for å laste inn data. Det tar inn flere argumenter som kan variere ut fra filtrering og sortering som er valgt. Backend håndterer hvordan query til databasen skal se ut basert på argumentene den tar inn.
 
