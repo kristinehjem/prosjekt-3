@@ -1,6 +1,6 @@
 # Prosjekt 3
 
-Vi har laget en nettside hvor du kan utforske Top 250 listen av filmer på IMDb. Du kan rate filmene, søke etter titler og filtrere på år filmene ble utgitt. Videre går vi gjennom de ulike teknologiene vi har brukt og begrunnelsen for det.
+Vi har laget en nettside hvor du kan utforske Top 250 listen av filmer på IMDb. Du kan rate filmene, søke etter titler og filtrere på år filmene ble utgitt. Videre går vi gjennom de ulike teknologiene vi har brukt og begrunnelsen for det. Mye av UIen er basert på Material UI slik at vi kunne fokusere mer på funksjonaliteten som siden skulle ha.
 
 ## State management - redux
 Vi har brukt redux for å håndtere state management. Komponentene som lagrer state i Redux har hver sin reducer som oppdateres når en handling blir gjort i ui. Vi har tre reducers, en for modal-informasjon, en for hvilke filtre for årstall som er checked, og en for hvilken tittel man søker på. Modalen og filtreringen på år og tittel lagres i redux for å kunne henholdsvis bruke samme modal for alle filmene og aksessere valgt filtrering fra komponenten som sender queries til databasen. Reducerene er definert i store, som igjen blir definert ved en Provider som omkranser hele applikasjonen i `App.tsx` for at alle komponenter skal ha tilgang på de ulike statene som blir lagret i redux. Når reducerne endrer state vil det oppdateres i store, og alle komponenter som er avhengig av en reducer vil få den oppdaterte informasjonen. Vi valgte å bruke Redux som state management fordi det er mye brukt, og kan gi en dypere forståelse enn andre rammeverk som Mobx fordi man må definere mer av koden selv. Apollo kommer automatisk med cache, og siden vi brukte det til å lage queries i frontend kunne det blitt brukt som state management. Vi bestemte derimot å ikke gjøre det for å lære redux og få en bredere kunnskap om state management.
@@ -41,11 +41,6 @@ Brukergenerert data blir lagret i databasen ved at en bruker gir sin rating på 
 
 ### Web accessibility 
 Vi har valgt å fokusere på forståelig informasjon og brukergrensesnitt fra https://www.w3.org/WAI/fundamentals/accessibility-principles/#understandable. Det er brukt enkle ord og fraser som virker forklarende til applikasjonens funksjonalitet. Ved innlasting av filmer vises det enkle meldinger som forklarer brukeren hvorfor ingen filmer vises - enten at de laster eller at det ikke er noen treff. Siden har et forutsigbart brukergrensesnitt der elementenes plassering og funksjonalitet er konsekvent. Eksempelvis er redux benyttet for å håndtere en felles modal med funksjonalitet og ui som hver film benytter i sin presentasjon. Det er viktig å kunne reversere feil brukeren måtte gjøre, og dette er løst ved å ha toggle-checkboxer og et “avbryt”-felt på søkefeltet. Ved rating av en film derimot, lagres verdien umiddelbart og det er ikke mulig å reversere ved eventuelle feil. Dette kan være uheldig, men vi har prioritert å sikre databasen ved at én bruker ikke kan skrive ratinger til databasen utallige ganger.
-
-## Brukte biblioteker - **TODO**
-I frontend har vi tatt mye i bruk material-ui for å style komponenter. 
-Har allerede nevnt GraphQL, Apollo, Redux, express, mongoose og mongoose-paginate-v2 
-Brukt mye material-UI
 
 ## Testing
 Testene er organisert slik at du finner integration-testene og e2e-testen under `frontend/cpyress/integration/` og unit-testene finner du i `frontend/src/__test__/`. For å integration-testene bruker du `npm test` og for å kjøre unit-testene kjører du `npm test-component`. 
